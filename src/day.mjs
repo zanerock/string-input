@@ -5,7 +5,7 @@ import { intlDateRE, usDateRE } from 'regex-repo'
 
 const describeSelf = (name) => describeInput('Day', name)
 
-const Day = function (input, name) {
+const Day = function (input, { name } = {}) {
   name = name || this?.name
 
   typeChecks(input, describeSelf, name)

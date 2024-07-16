@@ -15,7 +15,7 @@ describe('Day', () => {
     expect(day.getDayOfMonth()).toBe(dayOfMonth)
   })
 
-  test('Accepts name designation as input', () => expect(() => Day(undefined, 'foo')).toThrow(/Day 'foo'/))
+  test('Accepts name designation as input', () => expect(() => Day(undefined, { name: 'foo' })).toThrow(/Day 'foo'/))
 
   test("Looks for name on 'this' context", () => {
     const obj = { name : 'foo', type : Day }
@@ -24,7 +24,7 @@ describe('Day', () => {
 
   test("Explicit name overrides 'this' context", () => {
     const obj = { name : 'foo', type : Day }
-    expect(() => obj.type(undefined, 'bar')).toThrow(/Day 'bar'/)
+    expect(() => obj.type(undefined, { name: 'bar' })).toThrow(/Day 'bar'/)
   })
 
   test('Raises an error on undefined input', () => expect(() => Day(undefined)).toThrow(/is null or undefined/))
