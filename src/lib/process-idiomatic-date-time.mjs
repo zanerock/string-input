@@ -54,7 +54,7 @@ const processIdiomaticDateTime = (selfDescription, input, localTimezone) => {
   } else {
     month = parseInt(usDateMatch?.[1] || intlDateMatch?.[3])
   }
-  const day = parseInt(rfc2822Match?.[2] || usDateMatch?.[2] || intlDateMatch?.[4])
+  const day = parseInt(rfc2822DayMatch?.[2] || usDateMatch?.[2] || intlDateMatch?.[4])
 
   const isEOD = milTimeMatch?.[1] !== undefined || twentyFourHourTimeMatch?.[1] !== undefined || false
   let hours, minutes, seconds, fractionalSeconds
@@ -75,9 +75,9 @@ const processIdiomaticDateTime = (selfDescription, input, localTimezone) => {
 
   const timezone = milTimeMatch?.[4] || timeMatch?.[5] || twentyFourHourTimeMatch?.[6] || localTimezone
   const timezoneOffset =
-    getTimezoneOffset(selfDescription, [year, month, day, hours, minutes, seconds, fracSeconds, timezone])
+    getTimezoneOffset(selfDescription, [year, month, day, hours, minutes, seconds, fractionalSeconds, timezone])
 
-  return [year, month, day, isEOD, hours, minutes, seconds, fracSeconds, timezoneOffset]
+  return [year, month, day, isEOD, hours, minutes, seconds, fractionalSeconds, timezoneOffset]
 }
 
 export { processIdiomaticDateTime }

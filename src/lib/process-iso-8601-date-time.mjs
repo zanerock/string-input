@@ -53,6 +53,6 @@ const processISO8601DateTime = (selfDescription, iso8601Match, localTimezone) =>
   return [year, month, day, isEOD, hours, minutes, seconds, fracSeconds, timezoneOffset]
 }
 
-const roundFracSeconds = (realSeconds) => Math.round((realSeconds % 1) * fracSecondsPrecision)/fracSecondsPrecision
+const roundFracSeconds = (realSeconds) => Math.round((realSeconds % 1) * fracSecondsPrecision) / fracSecondsPrecision
 
 export { processISO8601DateTime }
