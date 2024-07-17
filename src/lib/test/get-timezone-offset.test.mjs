@@ -24,7 +24,7 @@ describe('getTimezoneOffset', () => {
     ['-1030', -630]/*,
     Unfortunately, it looks like Node (21.x) doesn't know about non-US timezones by name?
     ['ECT', 60],
-    ['ART', 120]*/
+    ['ART', 120] */
   ])('TZ %s => %s', (tz, offset) => {
     const [dateComponents] = getDateComponents()
     expect(getTimezoneOffset('Test input', [...dateComponents, tz])).toBe(offset)

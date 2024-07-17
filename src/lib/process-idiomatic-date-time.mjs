@@ -1,10 +1,10 @@
-import { 
-  intlDateREString, 
-  militaryTimeREString, 
-  rfc2822DayREString, 
-  timeREString, 
-  timezoneREString, 
-  twentyFourHourTimeREString, 
+import {
+  intlDateREString,
+  militaryTimeREString,
+  rfc2822DayREString,
+  timeREString,
+  timezoneREString,
+  twentyFourHourTimeREString,
   usDateREString
 } from 'regex-repo'
 
@@ -19,9 +19,9 @@ const processIdiomaticDateTime = (selfDescription, input, localTimezone) => {
   const twentyFourHourTimeRE = new RegExp(`${twentyFourHourTimeREString}(?:\\s*${timezoneREString})?`)
   const twentyFourHourTimeMatch = input.match(twentyFourHourTimeRE)
 
-  const timeMatches = (milTimeMatch !== null ? 1 : 0)
-    + (timeMatch !== null ? 1 : 0)
-    + (twentyFourHourTimeMatch !== null ? 1 : 0)
+  const timeMatches = (milTimeMatch !== null ? 1 : 0) +
+    (timeMatch !== null ? 1 : 0) +
+    (twentyFourHourTimeMatch !== null ? 1 : 0)
 
   if (timeMatches === 0) {
     throw new Error(`Could not find time component in ${selfDescription.toLowerCase()} input '${input}'.`)
@@ -35,14 +35,13 @@ const processIdiomaticDateTime = (selfDescription, input, localTimezone) => {
   const intlDateRE = new RegExp(intlDateREString)
   const intlDateMatch = input.match(intlDateRE)
 
-  const dayMatches = (rfc2822DayMatch !== null ? 1 : 0)
-    + (usDateMatch !== null ? 1 : 0)
-    + (intlDateMatch !== null ? 1 : 0)
+  const dayMatches = (rfc2822DayMatch !== null ? 1 : 0) +
+    (usDateMatch !== null ? 1 : 0) +
+    (intlDateMatch !== null ? 1 : 0)
 
   if (dayMatches === 0) {
     throw new Error(`Could not find date component in ${selfDescription.toLowerCase()} input '${input}'.`)
-  }
-  else if (dayMatches > 1) {
+  } else if (dayMatches > 1) {
     throw new Error(`Ambiguous date component in ${selfDescription.toLowerCase()} input '${input}'; try specifying a 4+ digit year (pad with '0' where necessary).`)
   }
 
@@ -64,8 +63,7 @@ const processIdiomaticDateTime = (selfDescription, input, localTimezone) => {
     minutes = 0
     seconds = 0
     fractionalSeconds = 0
-  }
-  else {
+  } else {
     hours = parseInt(milTimeMatch?.[2] || timeMatch?.[1] || twentyFourHourTimeMatch?.[2])
     if (timeMatch !== null) {
       hours += timeMatch[5].toLowerCase() === 'am' ? 0 : 12

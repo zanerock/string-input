@@ -29,12 +29,10 @@ const TimeOfDay = function (input, { name, noEOD } = {}) {
     minutes = 0
     seconds = 0
     fracSeconds = 0
-  }
-  else {
+  } else {
     if (timeMatch !== null) {
       hours = parseInt(timeMatch[1]) + (timeMatch[5].toLowerCase() === 'pm' ? 12 : 0)
-    }
-    else {
+    } else {
       hours = parseInt(militaryTimeMatch?.[2] || twentyFourHourTimeMatch?.[2])
     }
     minutes = parseInt(timeMatch?.[2] || militaryTimeMatch?.[3] || twentyFourHourTimeMatch?.[3])
@@ -44,10 +42,10 @@ const TimeOfDay = function (input, { name, noEOD } = {}) {
   }
 
   return {
-    isEOD : () => isEOD,
-    getHours      : () => hours,
-    getMinutes       : () => minutes,
-    getSeconds : () => seconds,
+    isEOD                : () => isEOD,
+    getHours             : () => hours,
+    getMinutes           : () => minutes,
+    getSeconds           : () => seconds,
     getFractionalSeconds : () => fracSeconds
   }
 }

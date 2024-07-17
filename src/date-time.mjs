@@ -42,16 +42,16 @@ const createResult = ([year, month, day, isEOD, hours, minutes, seconds, fracSec
     }
 
     return {
-      getYear : () => year,
-      getMonth : () => month,
-      getDay : () => day,
-      isEOD : () => isEOD,
-      getHours : () => hours,
-      getMinutes : () => minutes,
-      getSeconds : () => seconds,
+      getYear              : () => year,
+      getMonth             : () => month,
+      getDay               : () => day,
+      isEOD                : () => isEOD,
+      getHours             : () => hours,
+      getMinutes           : () => minutes,
+      getSeconds           : () => seconds,
       getFractionalSeconds : () => fracSeconds,
-      getMilliseconds : () => Math.round(fracSeconds * 1000),
-      getTimezoneOffset : () => timezoneOffset,
+      getMilliseconds      : () => Math.round(fracSeconds * 1000),
+      getTimezoneOffset    : () => timezoneOffset,
       getDate
     }
   })()

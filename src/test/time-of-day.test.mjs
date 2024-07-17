@@ -4,7 +4,7 @@ describe('TimeOfDay', () => {
   test.each(['2400', '24:00', '24:00:00'])('Recognizes %s as special end of day.', (input) =>
     expect(TimeOfDay(input).isEOD()).toBe(true))
 
-  test('Rejects EOD if disallowed', 
+  test('Rejects EOD if disallowed',
     () => expect(() => TimeOfDay('2400', { noEOD : true })).toThrow(/disallowed special/))
 
   test.each([
@@ -25,8 +25,8 @@ describe('TimeOfDay', () => {
     expect(time.getFractionalSeconds()).toBe(fracSecs)
   })
 
-  test('Accepts name designation as input', 
-    () => expect(() => TimeOfDay(undefined, { name: 'foo' })).toThrow(/Time of day 'foo'/))
+  test('Accepts name designation as input',
+    () => expect(() => TimeOfDay(undefined, { name : 'foo' })).toThrow(/Time of day 'foo'/))
 
   test("Looks for name on 'this' context", () => {
     const obj = { name : 'foo', type : TimeOfDay }
@@ -35,7 +35,7 @@ describe('TimeOfDay', () => {
 
   test("Explicit name overrides 'this' context", () => {
     const obj = { name : 'foo', type : TimeOfDay }
-    expect(() => obj.type(undefined, { name: 'bar' })).toThrow(/Time of day 'bar'/)
+    expect(() => obj.type(undefined, { name : 'bar' })).toThrow(/Time of day 'bar'/)
   })
 
   test('Raises an error on undefined input', () => expect(() => TimeOfDay(undefined)).toThrow(/is null or undefined/))

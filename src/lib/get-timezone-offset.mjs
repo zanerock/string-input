@@ -1,19 +1,16 @@
 const getTimezoneOffset = (selfDescription, [year, month, day, hours, minutes, seconds, fracSeconds, timezone]) => {
   if (timezone === undefined) {
     return new Date().getTimezoneOffset()
-  }
-  else if (timezone === 'z' || timezone === 'Z') {
+  } else if (timezone === 'z' || timezone === 'Z') {
     return 0
-  }
-  else {
+  } else {
     const numericTZMatch = timezone.match(/([+-])(\d{2})(?::?(\d{2}))?/)
     if (numericTZMatch !== null) {
       const offsetDirection = (numericTZMatch[1] === '-' ? -1 : 1)
       const offsetHours = 60 * parseInt(numericTZMatch[2])
       const offsetMinutes = parseInt(numericTZMatch[3])
       return offsetDirection * (offsetHours + offsetMinutes)
-    }
-    else { // it's a named TZ
+    } else { // it's a named TZ
       const partialSpec = `${year}-${('' + month).padStart(2, '0')}-${('' + day).padStart(2, '0')} ${('' + hours).padStart(2, '0')}:${('' + minutes).padStart(2, '0')}:${('' + seconds).padStart(2, '0')}.${fracSeconds}`
       const tzDate = new Date(`${partialSpec} ${timezone}`)
       if (isNaN(tzDate.getDate())) { // we assume everything but the TZ is good
