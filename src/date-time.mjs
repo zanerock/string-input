@@ -9,7 +9,7 @@ import { typeChecks } from './lib/type-checks'
 
 const describeSelf = (name) => describeInput('Date-time', name)
 
-const DateTime = (input, { localTimezone, name, noEOD } = {}) => {
+const DateTime = function (input, { localTimezone, name, noEOD } = {}) {
   localTimezone = localTimezone || this?.localTimezone
   name = name || this?.name
   noEOD = noEOD || this?.noEOD

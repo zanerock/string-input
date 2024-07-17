@@ -4,7 +4,8 @@ describe('DateTime', () => {
   test.each([
     ['2024-01-02T12:30:40.50Z', undefined, [2024, 1, 2, false, 12, 30, 40, 0.5, 0]],
     ['2 Jan 2024 12:30:40 Z', undefined, [2024, 1, 2, false, 12, 30, 40, 0, 0]],
-    ['1/2/2024 12:30:40.5 +0100', undefined, [2024, 1, 2, false, 12, 30, 40, 0.5, 60]]
+    ['1/2/2024 12:30:40.5 +0100', undefined, [2024, 1, 2, false, 12, 30, 40, 0.5, 60]],
+    ['1/2/2024 12:30:40.5', { localTimezone : '-0300' }, [2024, 1, 2, false, 12, 30, 40, 0.5, -180]]
   ])('%s (options: %p) => %p', (input, options, expected) => {
     const result = DateTime(input, options)
     expect(result.getYear()).toBe(expected[0])
@@ -31,8 +32,19 @@ describe('DateTime', () => {
     expect(date.getUTCMilliseconds()).toBe(500)
   })
 
+  test("Respects the 'noEOD' option'", () =>
+    expect(() => DateTime('1/2/2024 24:00', { noEOD : true })).toThrow(/does not allow special EOD time/))
+
+  test("Will get 'name' from 'this' context if present", () => {
+    const context = {
+      name : 'foo',
+      type : DateTime
+    }
+    expect(() => context.type('blah')).toThrow(/[Dd]ate-time 'foo'/)
+  })
+
   test('Caches the date', () => {
-    const dateTime = DateTime('2024-01-02 12:30:40.50 Z')
+    const dateTime = DateTime('2024-01-02 12:30:40.50 -0100')
     const date1 = dateTime.getDate()
     const date2 = dateTime.getDate()
     expect(date1).toBe(date2)
