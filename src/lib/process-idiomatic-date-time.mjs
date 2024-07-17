@@ -75,7 +75,7 @@ const processIdiomaticDateTime = (selfDescription, input, localTimezone) => {
     }
     minutes = parseInt(milTimeMatch?.[3] || timeMatch?.[2] || twentyFourHourTimeMatch?.[3])
     seconds = parseInt(timeMatch?.[3] || twentyFourHourTimeMatch?.[4] || '0')
-    fractionalSeconds = parseInt(timeMatch?.[4] || twentyFourHourTimeMatch?.[5] || '0')
+    fractionalSeconds = Number('0.' + (timeMatch?.[4] || twentyFourHourTimeMatch?.[5] || '0'))
   }
 
   const timezone = milTimeMatch?.[4] || timeMatch?.[6] || twentyFourHourTimeMatch?.[6] || localTimezone

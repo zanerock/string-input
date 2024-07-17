@@ -38,7 +38,7 @@ const Day = function (input, { name } = {}) {
 
   const testDate = new Date(year, month - 1, day)
   // The month can't overflow because we only accept valid months, so we just need to check the day of the month
-  if (day !== testDate.getDate()) {DEBUG
+  if (day !== testDate.getDate()) {
     throw new Error(`${describeSelf(name)} input '${input}' looks syntactically valid, but specifies an invalid day for the given month/year.`)
   }
 

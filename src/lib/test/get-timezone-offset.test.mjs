@@ -3,7 +3,7 @@ import { getTimezoneOffset } from '../get-timezone-offset'
 const getDateComponents = () => {
   const now = new Date()
   return [
-    [now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds()],
+    [now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds()/1000],
     now
   ]
 }
