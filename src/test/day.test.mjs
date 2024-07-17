@@ -7,7 +7,8 @@ describe('Day', () => {
     ['01-02-2024', 2024, 1, 2],
     ['1-2-2024', 2024, 1, 2],
     ['01/02/-2024', -2024, 1, 2],
-    ['-2024.01.02', -2024, 1, 2]
+    ['-2024.01.02', -2024, 1, 2],
+    ['2 Jan 2024', 2024, 1, 2]
   ])('%s => year: %p, month: %p, day of month: %p', (input, year, month, dayOfMonth) => {
     const day = Day(input)
     expect(day.getYear()).toBe(year)

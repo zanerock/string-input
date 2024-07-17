@@ -8,7 +8,7 @@ import { typeChecks } from './lib/type-checks'
 
 const describeSelf = (name) => describeInput('Date-time', name)
 
-const DateTime = (input, { localTimezone, name, noEOD }) => {
+const DateTime = (input, { localTimezone, name, noEOD } = {}) => {
   name = name || this?.name
   typeChecks(input, describeSelf, name)
 
@@ -36,15 +36,15 @@ const createResult = ([year, month, day, isEOD, hours, minutes, seconds, fracSec
         return cachedDate
       }
       const tzHrs = Math.trunc((timezoneOffset / 60))
-      const tzMins = getTimezoneOffset % 60
+      const tzMins = timezoneOffset % 60
       const tz = ('' + tzHrs).padStart(2, '0') + ('' + Math.abs(tzMins)).padStart(2, '0')
-      cachedDate = new Date(`${year}-${month}-${day}T${hour}:${minutes}:${seconds}.${fracSeconds} ${tz}`)
+      cachedDate = new Date(`${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${fracSeconds} ${tz}`)
     }
 
     return {
       getYear              : () => year,
       getMonth             : () => month,
-      getDay               : () => day,
+      getDayOfMonth        : () => day,
       isEOD                : () => isEOD,
       getHours             : () => hours,
       getMinutes           : () => minutes,
