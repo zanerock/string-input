@@ -32,6 +32,9 @@ const TimeOfDay = function (input, { name, noEOD } = {}) {
   } else {
     if (timeMatch !== null) {
       hours = parseInt(timeMatch[1]) + (timeMatch[5].toLowerCase() === 'pm' ? 12 : 0)
+      if (hours === 24) {
+        hours = 0
+      }
     } else {
       hours = parseInt(militaryTimeMatch?.[2] || twentyFourHourTimeMatch?.[2])
     }

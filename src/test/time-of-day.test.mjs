@@ -16,7 +16,8 @@ describe('TimeOfDay', () => {
     ['9:10 PM', 21, 10, 0, 0],
     ['09:10:30 PM', 21, 10, 30, 0],
     ['9:10:30.509 PM', 21, 10, 30, 0.509],
-    ['9:10 AM', 9, 10, 0, 0]
+    ['9:10 AM', 9, 10, 0, 0],
+    ['12:30 PM', 0, 30, 0, 0]
   ])('%s => hours: %s, minutes: %s, seconds: %s, frac seconds: %s', (input, hours, mins, secs, fracSecs) => {
     const time = TimeOfDay(input)
     expect(time.getHours()).toBe(hours)
