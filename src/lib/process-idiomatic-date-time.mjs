@@ -12,7 +12,7 @@ import { convertMonthName } from './convert-month-name'
 import { getTimezoneOffset } from './get-timezone-offset'
 
 const processIdiomaticDateTime = (selfDescription, input, localTimezone) => {
-  const milTimeRE = new RegExp(`${militaryTimeREString}(?![./-])(?:\\s*${timezoneREString})?`)
+  const milTimeRE = new RegExp(`(?<![./-])${militaryTimeREString}(?![./-])(?:\\s*${timezoneREString})?`)
   const milTimeMatch = input.match(milTimeRE)
   const timeRE = new RegExp(`${timeREString}(?:\\s*${timezoneREString})?`)
   const timeMatch = input.match(timeRE)
@@ -30,9 +30,9 @@ const processIdiomaticDateTime = (selfDescription, input, localTimezone) => {
 
   const rfc2822DayRE = new RegExp(rfc2822DayREString)
   const rfc2822DayMatch = input.match(rfc2822DayRE)
-  const usDateRE = new RegExp(usDateREString)
+  const usDateRE = new RegExp('\\b' + usDateREString + '\\b')
   const usDateMatch = input.match(usDateRE)
-  const intlDateRE = new RegExp(intlDateREString)
+  const intlDateRE = new RegExp('\\b' + intlDateREString + '\\b')
   const intlDateMatch = input.match(intlDateRE)
 
   const dayMatches = (rfc2822DayMatch !== null ? 1 : 0) +
