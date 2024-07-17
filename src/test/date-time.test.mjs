@@ -4,7 +4,7 @@ describe('DateTime', () => {
   test.each([
     ['2024-01-02T12:30:40.50Z', undefined, [2024, 1, 2, false, 12, 30, 40, 0.5, 0]],
     ['2 Jan 2024 12:30:40 Z', undefined, [2024, 1, 2, false, 12, 30, 40, 0, 0]],
-    ['1/2/2024 12:30:40.5 +0100', undefined, [2024, 1, 2, false, 12, 30, 40, .5, 60]]
+    ['1/2/2024 12:30:40.5 +0100', undefined, [2024, 1, 2, false, 12, 30, 40, 0.5, 60]]
   ])('%s (options: %p) => %p', (input, options, expected) => {
     const result = DateTime(input, options)
     expect(result.getYear()).toBe(expected[0])
@@ -27,7 +27,7 @@ describe('DateTime', () => {
     expect(date.getUTCDate()).toBe(2)
     expect(date.getUTCHours()).toBe(12)
     expect(date.getUTCMinutes()).toBe(30)
-    expect(date.getUTCSeconds()).toBe(40),
+    expect(date.getUTCSeconds()).toBe(40)
     expect(date.getUTCMilliseconds()).toBe(500)
   })
 

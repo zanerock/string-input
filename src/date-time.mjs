@@ -10,26 +10,36 @@ import { typeChecks } from './lib/type-checks'
 const describeSelf = (name) => describeInput('Date-time', name)
 
 const DateTime = (input, { localTimezone, name, noEOD } = {}) => {
+  localTimezone = localTimezone || this?.localTimezone
   name = name || this?.name
-  typeChecks(input, describeSelf, name)
+  noEOD = noEOD || this?.noEOD
 
-  let year, month, day, isEOD, hours, minutes, seconds, fracSeconds, timezoneOffset
+  typeChecks(input, describeSelf, name)
+  const selfDescription = describeInput('Date-time', name)
 
   const iso8601Match = input.match(iso8601DateTimeRE)
   if (iso8601Match !== null) {
-    return createResult(processISO8601DateTime(describeSelf(name), iso8601Match, localTimezone))
+    return createResult(selfDescription, processISO8601DateTime(selfDescription, iso8601Match, localTimezone), noEOD)
   }
 
   const rfc2822Match = input.match(rfc2822DateRE)
   if (rfc2822Match !== null) {
-    return createResult(processRFC2822DateTime(describeSelf(name), rfc2822Match, localTimezone))
+    return createResult(selfDescription, processRFC2822DateTime(selfDescription, rfc2822Match, localTimezone), noEOD)
   }
 
-  return createResult(processIdiomaticDateTime(describeSelf(name), input, localTimezone))
+  return createResult(selfDescription, processIdiomaticDateTime(selfDescription, input, localTimezone), noEOD)
 }
 
-const createResult = ([year, month, day, isEOD, hours, minutes, seconds, fracSeconds, timezoneOffset]) =>
+const createResult = (
+  selfDescription,
+  [year, month, day, isEOD, hours, minutes, seconds, fracSeconds, timezoneOffset],
+  noEOD
+) =>
   (function () {
+    if (noEOD === true && isEOD === true) {
+      throw new Error(`${selfDescription} does not allow special EOD time '24:00'.`)
+    }
+
     let cachedDate
 
     const getDate = () => {
@@ -38,9 +48,9 @@ const createResult = ([year, month, day, isEOD, hours, minutes, seconds, fracSec
       }
       const tzHrs = Math.trunc((timezoneOffset / 60))
       const tzMins = timezoneOffset % 60
-      const tz = (timezoneOffset >= 0 ? '+' : '-') 
-        + ('' + tzHrs).padStart(2, '0') 
-        + ('' + Math.abs(tzMins)).padStart(2, '0')
+      const tz = (timezoneOffset >= 0 ? '+' : '-') +
+        ('' + tzHrs).padStart(2, '0') +
+        ('' + Math.abs(tzMins)).padStart(2, '0')
       const dateString = makeDateTimeString([year, month, day, hours, minutes, seconds, fracSeconds, tz])
       cachedDate = new Date(dateString)
 

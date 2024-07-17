@@ -15,9 +15,9 @@ const Day = function (input, { name } = {}) {
   const usMatch = input.match(usDateRE)
   const rfc2822Match = input.match(new RegExp(`^${rfc2822DayREString}$`))
 
-  const matchCount = (intlMatch !== null ? 1 : 0)
-    + (usMatch !== null ? 1 : 0)
-    + (rfc2822Match !== null ? 1 : 0)
+  const matchCount = (intlMatch !== null ? 1 : 0) +
+    (usMatch !== null ? 1 : 0) +
+    (rfc2822Match !== null ? 1 : 0)
 
   if (matchCount > 1) {
     throw new Error(`${describeSelf(name)} value '${input}' is ambiguous; cannot determine month, date, or year. Try specifying four digit year (with leading zeros if necessary) to disambiguate US (MM/DD/YYYY) vs international (YYYY/MM/DD) formats.`)
@@ -30,8 +30,7 @@ const Day = function (input, { name } = {}) {
   let month
   if (rfc2822Match !== null) {
     month = convertMonthName(rfc2822Match[3])
-  }
-  else {
+  } else {
     month = parseInt(intlMatch?.[3] || usMatch?.[1])
   }
   const day = parseInt(intlMatch?.[4] || usMatch?.[2] || rfc2822Match?.[2])
