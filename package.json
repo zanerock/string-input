@@ -29,6 +29,6 @@
     "@liquid-labs/sdlc-resource-jest": "^1.0.0-alpha.7"
   },
   "dependencies": {
-    "regex-repo": "^2.1.0"
+    "regex-repo": "file:.yalc/regex-repo"
   }
 }
