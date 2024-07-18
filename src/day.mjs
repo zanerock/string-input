@@ -1,16 +1,22 @@
 import { intlDateRE, rfc2822DayREString, usDateRE } from 'regex-repo'
 
+import { checkMaxMin } from './lib/check-max-min'
+import { checkValidateInput } from './lib/check-validate-input'
+import { checkValidateValue } from './lib/check-validate-value'
 import { convertMonthName } from './lib/date-time/convert-month-name'
 import { describeInput } from './lib/describe-input'
 import { typeChecks } from './lib/type-checks'
 
-const Day = function (input, { name, after, before, validateInput, validateValue } = {}) {
-  after = after || this?.after
-  before = before || this?.before
-  name = name || this?.name
-  validateValue = validateValue || this?.validateValue
-  validateInput = validateInput || this?.validateInput
-
+const Day = function (
+  input, 
+  { 
+    name = this?.name, 
+    max = this?.max, 
+    min = this?.min, 
+    validateInput = this?.validateInput, 
+    validateValue = this?.validateValue
+  } = {}
+) {
   const selfDescription = describeInput('Day', name)
   typeChecks(input, selfDescription)
 
@@ -23,10 +29,12 @@ const Day = function (input, { name, after, before, validateInput, validateValue
     (rfc2822Match !== null ? 1 : 0)
 
   if (matchCount > 1) {
-    throw new Error(`selfDescription value '${input}' is ambiguous; cannot determine month, date, or year. Try specifying four digit year (with leading zeros if necessary) to disambiguate US (MM/DD/YYYY) vs international (YYYY/MM/DD) formats.`)
+    throw new Error(`${selfDescription} value '${input}' is ambiguous; cannot determine month, date, or year. Try specifying four digit year (with leading zeros if necessary) to disambiguate US (MM/DD/YYYY) vs international (YYYY/MM/DD) formats.`)
   } else if (matchCount === 0) {
-    throw Error(`selfDescription value '${input}' not recognized as either US, international, or RFC 2822 style date. Try something like '1/15/2024', '2024-1-15', or '15 Jan 2024'.`)
+    throw Error(`${selfDescription} value '${input}' not recognized as either US, international, or RFC 2822 style date. Try something like '1/15/2024', '2024-1-15', or '15 Jan 2024'.`)
   }
+
+  checkValidateInput({ input, selfDescription, validateInput })
 
   const ceIndicator = intlMatch?.[1] || usMatch?.[3] || ''
   const year = parseInt(ceIndicator + (intlMatch?.[2] || usMatch?.[4] || rfc2822Match?.[4]))
@@ -38,16 +46,35 @@ const Day = function (input, { name, after, before, validateInput, validateValue
   }
   const day = parseInt(intlMatch?.[4] || usMatch?.[2] || rfc2822Match?.[2])
 
-  const testDate = new Date(year, month - 1, day)
+  const date = new Date(year, month - 1, day)
+
+  if (typeof max === 'string') {
+    max = Day(max, { name: "foo' constraint 'max"}).getDate()
+  }
+  if (typeof min === 'string') {
+    min = Day(min, { name: "foo' constraint 'min"}).getDate()
+  }
+  checkMaxMin({ 
+    input, 
+    limitToString : (limit) => `${limit.getUTCFullYear()}/${('' + (limit.getUTCMonth() + 1)).padStart(2, '0')}/${('' + limit.getDate()).padStart(2, '0')}`, 
+    max, 
+    min, 
+    selfDescription, 
+    value : date 
+  })
+
+  checkValidateValue({ input, value : date, selfDescription, validateValue })
+
   // The month can't overflow because we only accept valid months, so we just need to check the day of the month
-  if (day !== testDate.getDate()) {
-    throw new Error(`selfDescription input '${input}' looks syntactically valid, but specifies an invalid day for the given month/year.`)
+  if (day !== date.getDate()) {
+    throw new Error(`${selfDescription} input '${input}' looks syntactically valid, but specifies an invalid day for the given month/year.`)
   }
 
   return {
     getDayOfMonth : () => day,
     getMonth      : () => month,
-    getYear       : () => year
+    getYear       : () => year,
+    getDate       : () => date
   }
 }
 

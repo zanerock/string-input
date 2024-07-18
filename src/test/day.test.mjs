@@ -1,42 +1,60 @@
 import { Day } from '../day'
 
 describe('Day', () => {
-  test.each([
-    ['2024-01-02', 2024, 1, 2],
-    ['2024-1-2', 2024, 1, 2],
-    ['01-02-2024', 2024, 1, 2],
-    ['1-2-2024', 2024, 1, 2],
-    ['01/02/-2024', -2024, 1, 2],
-    ['-2024.01.02', -2024, 1, 2],
-    ['2 Jan 2024', 2024, 1, 2]
-  ])('%s => year: %p, month: %p, day of month: %p', (input, year, month, dayOfMonth) => {
-    const day = Day(input)
-    expect(day.getYear()).toBe(year)
-    expect(day.getMonth()).toBe(month)
-    expect(day.getDayOfMonth()).toBe(dayOfMonth)
-  })
+  const validInput = [
+    ['2024-01-02', undefined, 2024, 1, 2],
+    ['2024-1-2', undefined, 2024, 1, 2],
+    ['01-02-2024', undefined, 2024, 1, 2],
+    ['1-2-2024', undefined, 2024, 1, 2],
+    ['01/02/-2024', undefined, -2024, 1, 2],
+    ['-2024.01.02', undefined, -2024, 1, 2],
+    ['2 Jan 2024', undefined, 2024, 1, 2],
+    ['2 Jan 2024', { max: '3 Jan 2024' }, 2024, 1, 2],
+    ['2 Jan 2024', { max: '2 Jan 2024' }, 2024, 1, 2],
+    ['2 Jan 2024', { max: new Date(2024, 0, 2) }, 2024, 1, 2],
+    ['2 Jan 2024', { min: '1 Jan 2024' }, 2024, 1, 2],
+    ['2 Jan 2024', { min: '2 Jan 2024' }, 2024, 1, 2],
+    ['2 Jan 2024', { min: new Date(2024, 0, 2) }, 2024, 1, 2],
+    ['2 Jan 2024', { validateInput : ({ input }) => input.endsWith('2024') }, 2024, 1, 2],
+    ['2 Jan 2024', { validateValue : ({ value }) => value.getUTCFullYear() === 2024 }, 2024, 1, 2]
+  ]
 
-  test('Accepts name designation as input', () => expect(() => Day(undefined, { name : 'foo' })).toThrow(/Day 'foo'/))
+  const failureInput = [
+    [undefined, {}, 'is null or undefined'],
+    [null, {}, 'is null or undefined'],
+    [12, {}, 'must be a string'],
+    ['01.01.01', {}, 'ambiguous'],
+    ['foo', {}, 'not recognized'],
+    ['2024-02-30', {}, 'invalid day'], // day overflow,
+    ['2 Jan 2024', { max: '1 Jan 2024' }, "must be less than or equal to '2024/01/01'"],
+    ['2 Jan 2024', { max: new Date(2024, 0, 1) }, "must be less than or equal to '2024/01/01'"],
+    ['2 Jan 2024', { min: '3 Jan 2024' }, "must be greater than or equal to '2024/01/03'"],
+    ['2 Jan 2024', { min: new Date(2024, 0, 3) }, "must be greater than or equal to '2024/01/03'"],
+    ['2 Jan 2024', { max: 'foo' }, "constraint 'max'.*? not recognized"], // check constraint validation
+    ['2 Jan 2024', { min: 'foo' }, "constraint 'min'.*? not recognized"],
+    ['2 Jan 2024', { validateInput : ({ input }) => input.endsWith('2023') }, 'failed custom input validation'],
+    ['2 Jan 2024', { validateValue : ({ value }) => value.getUTCFullYear() === 2023 }, 'failed custom value validation']
+  ].map((params) => { params[1].name = 'foo'; params[2] = "Day 'foo'.*?" + params[2]; return params })
 
-  test("Looks for name on 'this' context", () => {
-    const obj = { name : 'foo', type : Day }
-    expect(() => obj.type(undefined)).toThrow(/Day 'foo'/)
+  test.each(validInput)('%s and options %p => year: %p, month: %p, day of month: %p', 
+    (input, options, year, month, dayOfMonth) => {
+      const day = Day(input, options)
+      expect(day.getYear()).toBe(year)
+      expect(day.getMonth()).toBe(month)
+      expect(day.getDayOfMonth()).toBe(dayOfMonth)
+    }
+  )
+
+  test.each(failureInput)('%s and options %p throws error matching %s', (input, options, errorMatch) =>
+    expect(() => Day(input, options)).toThrow(new RegExp(errorMatch)))
+
+  test.each(failureInput)('%s and context %p throws error matching %s', (input, context, errorMatch) => {
+    context.type = Day
+    expect(() => context.type(input)).toThrow(new RegExp(errorMatch))
   })
 
   test("Explicit name overrides 'this' context", () => {
     const obj = { name : 'foo', type : Day }
     expect(() => obj.type(undefined, { name : 'bar' })).toThrow(/Day 'bar'/)
   })
-
-  test('Raises an error on undefined input', () => expect(() => Day(undefined)).toThrow(/is null or undefined/))
-
-  test('Raises an error on null input', () => expect(() => Day(null)).toThrow(/is null or undefined/))
-
-  test('Raises an error on non-string input', () => expect(() => Day(12)).toThrow(/must be a string/))
-
-  test('Raises an error on ambiguous input', () => expect(() => Day('01.01.01')).toThrow(/ambiguous/))
-
-  test('Raises an error on unrecognizable input', () => expect(() => Day('foo')).toThrow(/not recognized/))
-
-  test('Raises an error on date overflow', () => expect(() => Day('2024-02-30')).toThrow(/invalid day/))
 })
