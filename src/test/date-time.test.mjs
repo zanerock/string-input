@@ -1,12 +1,35 @@
 import { DateTime } from '../date-time'
 
 describe('DateTime', () => {
-  test.each([
+  const validInput = [
     ['2024-01-02T12:30:40.50Z', undefined, [2024, 1, 2, false, 12, 30, 40, 0.5, 0]],
     ['2 Jan 2024 12:30:40 Z', undefined, [2024, 1, 2, false, 12, 30, 40, 0, 0]],
     ['1/2/2024 12:30:40.5 +0100', undefined, [2024, 1, 2, false, 12, 30, 40, 0.5, 60]],
-    ['1/2/2024 12:30:40.5', { localTimezone : '-0300' }, [2024, 1, 2, false, 12, 30, 40, 0.5, -180]]
-  ])('%s (options: %p) => %p', (input, options, expected) => {
+    ['1/2/2024 12:30:40.5', { localTimezone : '-0300' }, [2024, 1, 2, false, 12, 30, 40, 0.5, -180]],
+    ['1/2/2024 12:30', { max: '1/2/2024 12:31'}, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
+    ['1/2/2024 12:30', { max: '1/2/2024 12:30'}, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
+    ['1/2/2024 12:30', { min: '1/2/2024 12:29'}, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
+    ['1/2/2024 12:30', { min: '1/2/2024 12:30'}, [2024, 1, 2, false, 12, 30, 0, 0, undefined]]
+  ]
+
+  const failureInput = [
+    [undefined, {}, 'is null or undefined'],
+    [null, {}, 'is null or undefined'],
+    [12, {}, 'must be a string'],
+    ['1/2/2024 24:00', { noEOD : true }, 'does not allow special EOD time'],
+    ['1/2/2024 12:30', { max: '1/2/2024 12:29'}, "must be less than or equal to '2024/01/02 12:29:00"],
+    ['1/2/2024 12:30', { min: '1/2/2024 12:31'}, "must be greater than or equal to '2024/01/02 12:31:00"],
+  ]
+    .map((params) => { params[1].name = 'foo'; params[2] = "Date-time 'foo'.*?" + params[2]; return params })
+    .concat([ // the following reference the input name differently
+      ['foo', { name: 'foo' }, "Could not find time component in date-time 'foo'"],
+      ['1/1/2024', { name: 'foo' }, "Could not find time component in date-time 'foo'"],
+      ['2400', { name: 'foo' }, "Could not find date component in date-time 'foo'"],
+      ['1/2/2024 12:30', { name: 'foo', max: 'bar'}, "Could not find time component in date-time 'foo' constraint 'max'"],
+      ['1/2/2024 12:30', { name: 'foo', min: 'bar'}, "Could not find time component in date-time 'foo' constraint 'min'"],
+    ])
+
+  test.each(validInput)('%s (options: %p) => %p', (input, options, expected) => {
     const result = DateTime(input, options)
     expect(result.getYear()).toBe(expected[0])
     expect(result.getMonth()).toBe(expected[1])
@@ -17,7 +40,17 @@ describe('DateTime', () => {
     expect(result.getSeconds()).toBe(expected[6])
     expect(result.getFractionalSeconds()).toBe(expected[7])
     expect(result.getMilliseconds()).toBe(expected[7] * 1000)
-    expect(result.getTimezoneOffset()).toBe(expected[8])
+    if (expected[8] !== undefined) {
+      expect(result.getTimezoneOffset()).toBe(expected[8])
+    }
+  })
+
+  test.each(failureInput)('%s and options %p throws error matching %s', (input, options, errorMatch) =>
+    expect(() => DateTime(input, options)).toThrow(new RegExp(errorMatch)))
+
+  test.each(failureInput)('%s and context %p throws error matching %s', (input, context, errorMatch) => {
+    context.type = DateTime
+    expect(() => context.type(input)).toThrow(new RegExp(errorMatch))
   })
 
   test('Can generate a JS Date', () => {
@@ -31,9 +64,6 @@ describe('DateTime', () => {
     expect(date.getUTCSeconds()).toBe(40)
     expect(date.getUTCMilliseconds()).toBe(500)
   })
-
-  test("Respects the 'noEOD' option'", () =>
-    expect(() => DateTime('1/2/2024 24:00', { noEOD : true })).toThrow(/does not allow special EOD time/))
 
   test("Will get 'name' from 'this' context if present", () => {
     const context = {
