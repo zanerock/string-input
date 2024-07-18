@@ -1,9 +1,9 @@
-const typeChecks = (input, describeSelf, name) => {
+const typeChecks = (input, selfDescription) => {
   if (input === undefined || input === null) {
-    throw new Error(`${describeSelf(name)} value is null or undefined.`)
+    throw new Error(`${selfDescription} value is null or undefined.`)
   }
   if ((typeof input) !== 'string') {
-    throw new Error(`${describeSelf(name)} value must be a string.`)
+    throw new Error(`${selfDescription} value must be a string.`)
   }
 }
 

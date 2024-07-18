@@ -3,24 +3,28 @@ import { militaryTimeRE, timeRE, twentyFourHourTimeRE } from 'regex-repo'
 import { describeInput } from './lib/describe-input'
 import { typeChecks } from './lib/type-checks'
 
-const describeSelf = (name) => describeInput('Time of day', name)
-
-const TimeOfDay = function (input, { name, noEOD } = {}) {
+const TimeOfDay = function (input, { name, after, before, noEOD, validateInput, validateValue } = {}) {
+  after = after || this?.after
+  before = before || this?.before
   name = name || this?.name
+  noEOD = noEOD || this?.noEOD
+  validateInput = validateInput || this?.validateInput
+  validateValue = validateValue || this?.validateValue
 
-  typeChecks(input, describeSelf, name)
+  const selfDescription = describeInput('Time of day', name)
+  typeChecks(input, selfDescription, name)
 
   const militaryTimeMatch = input.match(militaryTimeRE)
   const timeMatch = input.match(timeRE)
   const twentyFourHourTimeMatch = input.match(twentyFourHourTimeRE)
 
   if (militaryTimeMatch === null && timeMatch === null && twentyFourHourTimeMatch === null) {
-    throw Error(`${describeSelf(name)} value '${input}' not recognized as either military, standard, or 24-hour time. Try something like '2130', 9:30 PM', or '21:30'.`)
+    throw Error(`selfDescription value '${input}' not recognized as either military, standard, or 24-hour time. Try something like '2130', 9:30 PM', or '21:30'.`)
   }
 
   const isEOD = militaryTimeMatch?.[1] !== undefined || twentyFourHourTimeMatch?.[1] !== undefined
   if (noEOD === true) {
-    throw new Error(`${describeSelf(name)} indicates disallowed special 'end-of-day' time.`)
+    throw new Error(`selfDescription indicates disallowed special 'end-of-day' time.`)
   }
 
   let hours, minutes, seconds, fracSeconds
