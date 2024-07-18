@@ -46,13 +46,15 @@ const Day = function (
   }
   const day = parseInt(intlMatch?.[4] || usMatch?.[2] || rfc2822Match?.[2])
 
+  // we set the date explicitly like this because Date parses things inconsistently. E.g. (as of Node 21.5.0), 
+  // '-2024-01-02' parses as '2024-01-02T06:00:00.000Z', while '01/02/-2024' is just invalid.
   const date = new Date(year, month - 1, day)
 
   if (typeof max === 'string') {
     max = Day(max, { name : `${name}' constraint 'max` }).getDate()
   } else if (typeof max === 'number') {
     max = new Date(max)
-  } else if (max instanceof Day) {
+  } else if (max !== undefined && max.isDayObject?.()) {
     max = max.getDate()
   } else if (max !== undefined && !(max instanceof Date)) {
     throw new Error(`${selfDescription} constraint 'max' has nonconvertible type. Use 'string', 'number', 'Date', or 'Day'.`)
@@ -61,7 +63,7 @@ const Day = function (
     min = Day(min, { name : `${name}' constraint 'min` }).getDate()
   } else if (typeof min === 'number') {
     min = new Date(min)
-  } else if (min instanceof Day) {
+  } else if (min !== undefined && min.isDayObject?.()) {
     min = min.getDate()
   } else if (min !== undefined && !(min instanceof Date)) {
     throw new Error(`${selfDescription} constraint 'min' has nonconvertible type. Use 'string', 'number', 'Date', or 'Day'.`)
@@ -75,20 +77,25 @@ const Day = function (
     value         : date
   })
 
-  checkValidateValue(date, { input, selfDescription, validateValue })
-
   // The month can't overflow because we only accept valid months, so we just need to check the day of the month
   if (day !== date.getDate()) {
     throw new Error(`${selfDescription} input '${input}' looks syntactically valid, but specifies an invalid day for the given month/year.`)
   }
 
-  return {
-    getDayOfMonth : () => day,
-    getMonth      : () => month,
-    getYear       : () => year,
-    getDate       : () => date,
-    valueOf       : () => date.getTime()
-  }
+  const value = createValue({ day, month, year, date})
+
+  checkValidateValue(value, { input, selfDescription, validateValue })
+
+  return value
 }
+
+const createValue = ({ day, month, year, date }) => ({
+  isDayObject   : () => true,
+  getDayOfMonth : () => day,
+  getMonth      : () => month,
+  getYear       : () => year,
+  getDate       : () => date,
+  valueOf       : () => date.getTime()
+})
 
 export { Day }
