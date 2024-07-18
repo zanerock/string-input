@@ -3,14 +3,17 @@ import { militaryTimeRE, timeRE, twentyFourHourTimeRE } from 'regex-repo'
 import { describeInput } from './lib/describe-input'
 import { typeChecks } from './lib/type-checks'
 
-const TimeOfDay = function (input, { name, after, before, noEOD, validateInput, validateValue } = {}) {
-  after = after || this?.after
-  before = before || this?.before
-  name = name || this?.name
-  noEOD = noEOD || this?.noEOD
-  validateInput = validateInput || this?.validateInput
-  validateValue = validateValue || this?.validateValue
-
+const TimeOfDay = function (
+  input, 
+  { 
+    name = this?.name, 
+    max = this?.max,
+    min = this?.min,
+    noEOD = this?.noEOD, 
+    validateInput = this?.validateInput, 
+    validateValue = this?.validateValue 
+  } = {}
+) {
   const selfDescription = describeInput('Time of day', name)
   typeChecks(input, selfDescription, name)
 
