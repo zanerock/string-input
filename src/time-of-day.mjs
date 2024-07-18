@@ -1,7 +1,7 @@
+import { militaryTimeRE, timeRE, twentyFourHourTimeRE } from 'regex-repo'
+
 import { describeInput } from './lib/describe-input'
 import { typeChecks } from './lib/type-checks'
-
-import { militaryTimeRE, timeRE, twentyFourHourTimeRE } from 'regex-repo'
 
 const describeSelf = (name) => describeInput('Time of day', name)
 

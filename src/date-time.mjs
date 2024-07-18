@@ -1,10 +1,10 @@
 import { iso8601DateTimeRE, rfc2822DateRE } from 'regex-repo'
 
 import { describeInput } from './lib/describe-input'
-import { makeDateTimeString } from './lib/make-date-time-string'
-import { processIdiomaticDateTime } from './lib/process-idiomatic-date-time'
-import { processISO8601DateTime } from './lib/process-iso-8601-date-time'
-import { processRFC2822DateTime } from './lib/process-rfc-2822-date-time'
+import { makeDateTimeString } from './lib/date-time/make-date-time-string'
+import { processIdiomaticDateTime } from './lib/date-time/process-idiomatic-date-time'
+import { processISO8601DateTime } from './lib/date-time/process-iso-8601-date-time'
+import { processRFC2822DateTime } from './lib/date-time/process-rfc-2822-date-time'
 import { typeChecks } from './lib/type-checks'
 
 const describeSelf = (name) => describeInput('Date-time', name)

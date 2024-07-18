@@ -1,6 +1,6 @@
 import { intlDateRE, rfc2822DayREString, usDateRE } from 'regex-repo'
 
-import { convertMonthName } from './lib/convert-month-name'
+import { convertMonthName } from './lib/date-time/convert-month-name'
 import { describeInput } from './lib/describe-input'
 import { typeChecks } from './lib/type-checks'
 
