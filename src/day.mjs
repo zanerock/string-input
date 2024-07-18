@@ -86,7 +86,8 @@ const Day = function (
     getDayOfMonth : () => day,
     getMonth      : () => month,
     getYear       : () => year,
-    getDate       : () => date
+    getDate       : () => date,
+    valueOf       : () => date.getTime()
   }
 }
 
