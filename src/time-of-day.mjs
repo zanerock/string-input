@@ -41,7 +41,7 @@ const TimeOfDay = function (
     max = TimeOfDay(max, { name: `${name}' constraint 'max` })
   }
   if (min !== undefined) {
-    min = TimeOfDay(min, { name: `${name}' constraint 'max` })
+    min = TimeOfDay(min, { name: `${name}' constraint 'min` })
   }
   checkMaxMin({ input, limitToString : limitDescriptor, max, min, selfDescription, value })
 

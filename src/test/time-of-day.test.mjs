@@ -28,6 +28,8 @@ describe('TimeOfDay', () => {
     ['2400', { noEOD : true }, 'disallowed special'],
     ['12:00', { max: '11:59' }, "must be less than or equal to '11:59:00'"],
     ['12:00', { min: '12:01' }, "must be greater than or equal to '12:01:00"],
+    ['12:00', { max: 'foo' }, "constraint 'max'.*?not recognized"],
+    ['12:00', { min: 'foo' }, "constraint 'min'.*?not recognized"],
     ['1200', { validateInput : ({ input }) => /:/.test(input) }, 'failed custom input validation'],
     ['12:00', { validateValue : ({ value }) => value.getSeconds() !== 0 }, 'failed custom value validation']
   ].map((params) => { params[1].name = 'foo'; params[2] = "Time of day 'foo'.*?" + params[2]; return params })
