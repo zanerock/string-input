@@ -49,10 +49,10 @@ const Day = function (
   const date = new Date(year, month - 1, day)
 
   if (typeof max === 'string') {
-    max = Day(max, { name: "foo' constraint 'max"}).getDate()
+    max = Day(max, { name: `${name}' constraint 'max` }).getDate()
   }
   if (typeof min === 'string') {
-    min = Day(min, { name: "foo' constraint 'min"}).getDate()
+    min = Day(min, { name: `${name}' constraint 'min` }).getDate()
   }
   checkMaxMin({ 
     input, 
