@@ -35,13 +35,13 @@ const Integer = function (
     throw new Error(msg)
   }
 
-  checkValidateInput({ input, selfDescription, validateInput })
+  checkValidateInput(input, { selfDescription, validateInput })
   const value = parseInt(input)
   checkMaxMin({ input, max, min, selfDescription, value })
   if (divisibleBy !== undefined && (value % divisibleBy) !== 0) {
     throw new Error(`${selfDescription} input '${input}' must be divisible by '${divisibleBy}.`)
   }
-  checkValidateValue({ input, selfDescription, validateValue, value })
+  checkValidateValue(value, { input, selfDescription, validateValue })
 
   return value
 }

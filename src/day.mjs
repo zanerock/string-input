@@ -34,7 +34,7 @@ const Day = function (
     throw Error(`${selfDescription} value '${input}' not recognized as either US, international, or RFC 2822 style date. Try something like '1/15/2024', '2024-1-15', or '15 Jan 2024'.`)
   }
 
-  checkValidateInput({ input, selfDescription, validateInput })
+  checkValidateInput(input, { selfDescription, validateInput })
 
   const ceIndicator = intlMatch?.[1] || usMatch?.[3] || ''
   const year = parseInt(ceIndicator + (intlMatch?.[2] || usMatch?.[4] || rfc2822Match?.[4]))
@@ -63,7 +63,7 @@ const Day = function (
     value : date 
   })
 
-  checkValidateValue({ input, value : date, selfDescription, validateValue })
+  checkValidateValue(date, { input, selfDescription, validateValue })
 
   // The month can't overflow because we only accept valid months, so we just need to check the day of the month
   if (day !== date.getDate()) {

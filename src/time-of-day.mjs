@@ -33,7 +33,7 @@ const TimeOfDay = function (
     throw new Error(`${selfDescription} indicates disallowed special 'end-of-day' time.`)
   }
 
-  checkValidateInput({ input, selfDescription, validateInput })
+  checkValidateInput(input, { selfDescription, validateInput })
 
   const value = getValue({ isEOD, militaryTimeMatch, timeMatch, twentyFourHourTimeMatch })
   
@@ -45,7 +45,7 @@ const TimeOfDay = function (
   }
   checkMaxMin({ input, limitToString : limitDescriptor, max, min, selfDescription, value })
 
-  checkValidateValue({ input, value, selfDescription, validateValue })
+  checkValidateValue(value, { input, selfDescription, validateValue })
 
   return value
 }

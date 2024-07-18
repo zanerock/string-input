@@ -16,8 +16,8 @@ describe('TimeOfDay', () => {
     ['12:00', { max: '12:00' }, 12, 0, 0, 0],
     ['12:00', { min: '11:59' }, 12, 0, 0, 0],
     ['12:00', { min: '12:00' }, 12, 0, 0, 0],
-    ['12:00', { validateInput : ({ input }) => /:/.test(input) }, 12, 0, 0, 0],
-    ['12:00', { validateValue : ({ value }) => value.getSeconds() === 0 }, 12, 0, 0, 0]
+    ['12:00', { validateInput : (input) => /:/.test(input) }, 12, 0, 0, 0],
+    ['12:00', { validateValue : (value) => value.getSeconds() === 0 }, 12, 0, 0, 0]
   ]
 
   const invalidInput = [
@@ -30,8 +30,8 @@ describe('TimeOfDay', () => {
     ['12:00', { min: '12:01' }, "must be greater than or equal to '12:01:00"],
     ['12:00', { max: 'foo' }, "constraint 'max'.*?not recognized"],
     ['12:00', { min: 'foo' }, "constraint 'min'.*?not recognized"],
-    ['1200', { validateInput : ({ input }) => /:/.test(input) }, 'failed custom input validation'],
-    ['12:00', { validateValue : ({ value }) => value.getSeconds() !== 0 }, 'failed custom value validation']
+    ['1200', { validateInput : (input) => /:/.test(input) }, 'failed custom input validation'],
+    ['12:00', { validateValue : (value) => value.getSeconds() !== 0 }, 'failed custom value validation']
   ].map((params) => { params[1].name = 'foo'; params[2] = "Time of day 'foo'.*?" + params[2]; return params })
 
   test.each(validInput)('%s, options %p => hours: %s, minutes: %s, seconds: %s, frac seconds: %s', 

@@ -15,8 +15,8 @@ describe('Integer', () => {
     ['12', { max : 12 }, 12],
     ['12', { min : 12 }, 12],
     ['12', { divisibleBy : 3 }, 12],
-    ['12', { validateInput : ({ input }) => input === '12' }, 12],
-    ['12', { validateValue : ({ value }) => value === 12 }, 12]
+    ['12', { validateInput : (input) => input === '12' }, 12],
+    ['12', { validateValue : (value) => value === 12 }, 12]
   ]
 
   const failureInput = [
@@ -30,8 +30,8 @@ describe('Integer', () => {
     ['12', { max : 11 }, 'must be less than'],
     ['12', { min : 13 }, 'must be greater than'],
     ['12', { divisibleBy : 5 }, 'must be divisible by'],
-    ['12', { validateInput : ({ input }) => input === '13' }, 'failed custom input validation'],
-    ['12', { validateValue : ({ value }) => value === 13 }, 'failed custom value validation']
+    ['12', { validateInput : (input) => input === '13' }, 'failed custom input validation'],
+    ['12', { validateValue : (value) => value === 13 }, 'failed custom value validation']
   ].map((params) => { params[1].name = 'foo'; params[2] = "Integer 'foo'.*?" + params[2]; return params })
   // ^^ In order to keep the `failureInput` compact, we append the `name` and add the name check to the regex here
 

@@ -1,7 +1,7 @@
-const checkValidateValue = ({ input, selfDescription, validateValue, value }) => {
+const checkValidateValue = (value, { input, selfDescription, validateValue } = {}) => {
   if (validateValue === undefined) return
 
-  const result = validateValue({ input, selfDescription, value })
+  const result = validateValue(value, { input, selfDescription })
   // if 'validateValue' doesn't throw
   if (result === false) {
     throw new Error(`${selfDescription} input '${input}' failed custom value validation.`)
