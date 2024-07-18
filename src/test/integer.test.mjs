@@ -20,6 +20,9 @@ describe('Integer', () => {
   ]
 
   const failureInput = [
+    [undefined, {}, 'is null or undefined'],
+    [null, {}, 'is null or undefined'],
+    [12, {}, 'must be a string'],
     ['1.2', {}, 'does not appear to be an integer'],
     ['01', {}, 'does not appear to be an integer'],
     ['foo', {}, 'does not appear to be an integer'],
