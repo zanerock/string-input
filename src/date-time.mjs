@@ -58,7 +58,7 @@ const DateTime = function (
   }
   else if (max instanceof Date) {
     max = DateTime(makeDateTimeString([max.getUTCFullYear(), max.getUTCMonth() + 1, max.getUTCDate(), max.getUTCHours(), max.getUTCMinutes(), max.getUTCSeconds(), max.getUTCMilliseconds() / 1000, 'Z']))
-  } else if (max !== undefined && max.isDateTime?.() !== true) {
+  } else if (max !== undefined && max.isDateTimeObject?.() !== true) {
     throw new Error(`${selfDescription} constraint 'max' has nonconvertible type. Use 'string', 'number', 'Date', or 'DateTime'.`)
   }
   if (typeof min === 'string') {
@@ -70,7 +70,7 @@ const DateTime = function (
   }
   else if (min instanceof Date) {
     min = DateTime(makeDateTimeString([min.getUTCFullYear(), min.getUTCMonth() + 1, min.getUTCDate(), min.getUTCHours(), min.getUTCMinutes(), min.getUTCSeconds(), min.getUTCMilliseconds() / 1000, 'Z']))
-  } else if (min !== undefined && min.isDateTime?.() !== true) {
+  } else if (min !== undefined && min.isDateTimeObject?.() !== true) {
     throw new Error(`${selfDescription} constraint 'min' has nonconvertible type. Use 'string', 'number', Date', or 'DateTime'.`)
   }
   checkMaxMin({ input, limitToString, max, min, selfDescription, value })
@@ -99,7 +99,7 @@ const createValue = ([year, month, day, isEOD, hours, minutes, seconds, fracSeco
   const date = new Date(dateString)
 
   return {
-    isDateTime           : () => true,
+    isDateTimeObject     : () => true,
     getYear              : () => year,
     getMonth             : () => month,
     getDayOfMonth        : () => day,
