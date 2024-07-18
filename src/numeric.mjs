@@ -1,14 +1,12 @@
-import { integerRE } from 'regex-repo'
-
 import { checkMaxMin } from './lib/check-max-min'
 import { checkValidateInput } from './lib/check-validate-input'
 import { checkValidateValue } from './lib/check-validate-value'
 import { describeInput } from './lib/describe-input'
 import { typeChecks } from './lib/type-checks'
 
-const anyDigitsRE = /^-?\d+$/
+const leadingZeroRE = /^0(?!\.|$)/ // test for leading zeros, but allow '0', and '0.xx'
 
-const Integer = function (
+const Numeric = function (
   input,
   {
     name = this?.name,
@@ -20,22 +18,17 @@ const Integer = function (
     validateValue = this?.validateValue
   } = {}
 ) {
-  const selfDescription = describeInput('Integer', name)
+  const selfDescription = describeInput('Numeric', name)
   typeChecks(input, selfDescription)
 
-  if (allowLeadingZeros !== true && input.match(integerRE) === null) {
-    let msg = `${selfDescription} input value '${input}' does not appear to be an integer.`
-    if (input.match(anyDigitsRE)) {
-      msg += ' Leading zeros are not allowed.'
-    }
-    throw new Error(msg)
-  } else if (allowLeadingZeros === true && input.match(anyDigitsRE) === null) {
-    const msg = `${selfDescription} input value '${input}' does not appear to be an integer (leading zeros allowed).`
-    throw new Error(msg)
+  if (allowLeadingZeros !== true && leadingZeroRE.test(input) === true) {
+    throw new Error(`${selfDescription} input value '${input}' contains disallowed leading zeros.`)
+  } else if (input !== input.trim()) {
+    throw new Error(`${selfDescription} input value '${input}' contains disallowed leading or trailing space.`)
   }
 
   checkValidateInput(input, { selfDescription, validateInput })
-  const value = parseInt(input)
+  const value = Number(input)
   checkMaxMin({ input, max, min, selfDescription, value })
   if (divisibleBy !== undefined && (value % divisibleBy) !== 0) {
     throw new Error(`${selfDescription} input '${input}' must be divisible by '${divisibleBy}'.`)
@@ -45,4 +38,4 @@ const Integer = function (
   return value
 }
 
-export { Integer }
+export { Numeric }
