@@ -10,10 +10,10 @@ describe('DateTime', () => {
     ['1/2/2024 12:30', { max : '1/2/2024 12:30' }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
     ['1/2/2024 12:30', { min : '1/2/2024 12:29' }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
     ['1/2/2024 12:30', { min : '1/2/2024 12:30' }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
-    ['1/2/2024 12:30', { max : new Date('1/2/2024 12:30') }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
-    ['1/2/2024 12:45', { min : new Date('1/2/2024 12:45') }, [2024, 1, 2, false, 12, 45, 0, 0, undefined]],
-    ['1/2/2024 12:30', { max : new Date('1/2/2024 12:30').getTime() }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
-    ['1/2/2024 12:30', { min : new Date('1/2/2024 12:30').getTime() }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
+    ['1/2/2024 12:30', { max : new Date(2024, 0, 2, 12, 30) }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
+    ['1/2/2024 12:45', { min : new Date(2024, 0, 2, 12, 45) }, [2024, 1, 2, false, 12, 45, 0, 0, undefined]],
+    ['1/2/2024 12:30', { max : new Date(2024, 0, 2, 12, 30).getTime() }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
+    ['1/2/2024 12:30', { min : new Date(2024, 0, 2, 12, 30).getTime() }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
     ['1/2/2024 12:30', { validateInput : (input) => /:/.test(input) }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
     ['1/2/2024 12:30', { validateValue : (value) => value.getYear() === 2024 }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]]
   ]
