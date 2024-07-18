@@ -50,9 +50,21 @@ const Day = function (
 
   if (typeof max === 'string') {
     max = Day(max, { name : `${name}' constraint 'max` }).getDate()
+  } else if (typeof max === 'number') {
+    max = new Date(max)
+  } else if (max instanceof Day) {
+    max = max.getDate()
+  } else if (max !== undefined && !(max instanceof Date)) {
+    throw new Error(`${selfDescription} constraint 'max' has nonconvertible type. Use 'string', 'number', 'Date', or 'Day'.`)
   }
   if (typeof min === 'string') {
     min = Day(min, { name : `${name}' constraint 'min` }).getDate()
+  } else if (typeof min === 'number') {
+    min = new Date(min)
+  } else if (min instanceof Day) {
+    min = min.getDate()
+  } else if (min !== undefined && !(min instanceof Date)) {
+    throw new Error(`${selfDescription} constraint 'min' has nonconvertible type. Use 'string', 'number', 'Date', or 'Day'.`)
   }
   checkMaxMin({
     input,

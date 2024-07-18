@@ -10,6 +10,10 @@ describe('DateTime', () => {
     ['1/2/2024 12:30', { max : '1/2/2024 12:30' }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
     ['1/2/2024 12:30', { min : '1/2/2024 12:29' }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
     ['1/2/2024 12:30', { min : '1/2/2024 12:30' }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
+    ['1/2/2024 12:30', { max : new Date('1/2/2024 12:30') }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
+    ['1/2/2024 12:45', { min : new Date('1/2/2024 12:45') }, [2024, 1, 2, false, 12, 45, 0, 0, undefined]],
+    ['1/2/2024 12:30', { max : new Date('1/2/2024 12:30').getTime() }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
+    ['1/2/2024 12:30', { min : new Date('1/2/2024 12:30').getTime() }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
     ['1/2/2024 12:30', { validateInput : (input) => /:/.test(input) }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
     ['1/2/2024 12:30', { validateValue : (value) => value.getYear() === 2024 }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]]
   ]
@@ -20,7 +24,13 @@ describe('DateTime', () => {
     [12, {}, 'must be a string'],
     ['1/2/2024 24:00', { noEOD : true }, 'does not allow special EOD time'],
     ['1/2/2024 12:30', { max : '1/2/2024 12:29' }, "must be less than or equal to '2024/01/02 12:29:00"],
+    // we have to specify the 'Z' here because when DateTime is created from Date, it's always in Z and we'd have to
+    // handle the offset manually here to match it up without pinning both to Z
+    ['1/2/2024 12:30 Z', { max : new Date('1/2/2024 12:29 Z') }, "must be less than or equal to '2024/01/02 12:29:00"],
     ['1/2/2024 12:30', { min : '1/2/2024 12:31' }, "must be greater than or equal to '2024/01/02 12:31:00"],
+    ['1/2/2024 12:30 Z', { min : new Date('1/2/2024 12:31 Z') }, "must be greater than or equal to '2024/01/02 12:31:00"],
+    ['1/2/2024 12:30', { max : /invalid type/ }, "'max' has nonconvertible type"],
+    ['1/2/2024 12:30', { min : /invalid type/ }, "'min' has nonconvertible type"],
     ['1/2/2024 1230', { validateInput : (input) => /:/.test(input) }, 'failed custom input validation'],
     ['1/2/2024 12:30', { validateValue : (value) => value.getYear() === 2023 }, 'failed custom value validation']
   ]

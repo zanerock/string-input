@@ -2,7 +2,9 @@ import { makeDateTimeString } from './make-date-time-string'
 
 const getTimezoneOffset = (selfDescription, [year, month, day, hours, minutes, seconds, fracSeconds, timezone]) => {
   if (timezone === undefined) {
-    return new Date().getTimezoneOffset()
+    // it's important to test against the date/time itself in case it's in a different daylight savings period than the 
+    // current
+    return new Date(makeDateTimeString([year, month, day, hours, minutes, seconds, fracSeconds])).getTimezoneOffset()
   } else if (timezone === 'z' || timezone === 'Z') {
     return 0
   } else {
