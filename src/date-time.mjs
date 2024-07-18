@@ -7,15 +7,17 @@ import { processISO8601DateTime } from './lib/date-time/process-iso-8601-date-ti
 import { processRFC2822DateTime } from './lib/date-time/process-rfc-2822-date-time'
 import { typeChecks } from './lib/type-checks'
 
-const DateTime = function (input, { name, after, before, localTimezone, noEOD, validateInput, validateValue } = {}) {
-  after = after || this?.after
-  before = before || this?.before
-  localTimezone = localTimezone || this?.localTimezone
-  name = name || this?.name
-  noEOD = noEOD || this?.noEOD
-  validateInput = validateInput || this?.validateInput
-  validateValue = validateValue || this?.validateValue
-
+const DateTime = function (
+  input, 
+  { 
+    name = this?.name, 
+    localTimezone = this?.localTimezone, 
+    max = this?.max,
+    min = this?.min,
+    noEOD = this?.noEOD, 
+    validateInput = this?.validateInput, 
+    validateValue = this?.validateValue 
+} = {}) {
   const selfDescription = describeInput('Date-time', name)
   typeChecks(input, selfDescription)
 
