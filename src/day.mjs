@@ -8,12 +8,12 @@ import { describeInput } from './lib/describe-input'
 import { typeChecks } from './lib/type-checks'
 
 const Day = function (
-  input, 
-  { 
-    name = this?.name, 
-    max = this?.max, 
-    min = this?.min, 
-    validateInput = this?.validateInput, 
+  input,
+  {
+    name = this?.name,
+    max = this?.max,
+    min = this?.min,
+    validateInput = this?.validateInput,
     validateValue = this?.validateValue
   } = {}
 ) {
@@ -49,18 +49,18 @@ const Day = function (
   const date = new Date(year, month - 1, day)
 
   if (typeof max === 'string') {
-    max = Day(max, { name: `${name}' constraint 'max` }).getDate()
+    max = Day(max, { name : `${name}' constraint 'max` }).getDate()
   }
   if (typeof min === 'string') {
-    min = Day(min, { name: `${name}' constraint 'min` }).getDate()
+    min = Day(min, { name : `${name}' constraint 'min` }).getDate()
   }
-  checkMaxMin({ 
-    input, 
-    limitToString : (limit) => `${limit.getUTCFullYear()}/${('' + (limit.getUTCMonth() + 1)).padStart(2, '0')}/${('' + limit.getDate()).padStart(2, '0')}`, 
-    max, 
-    min, 
-    selfDescription, 
-    value : date 
+  checkMaxMin({
+    input,
+    limitToString : (limit) => `${limit.getUTCFullYear()}/${('' + (limit.getUTCMonth() + 1)).padStart(2, '0')}/${('' + limit.getDate()).padStart(2, '0')}`,
+    max,
+    min,
+    selfDescription,
+    value         : date
   })
 
   checkValidateValue(date, { input, selfDescription, validateValue })

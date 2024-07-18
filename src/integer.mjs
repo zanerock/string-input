@@ -9,13 +9,13 @@ import { typeChecks } from './lib/type-checks'
 const anyDigitsRE = /^-?\d+$/
 
 const Integer = function (
-  input, 
-  { 
+  input,
+  {
     name = this?.name,
     allowLeadingZeros = this?.allowLeadingZeros,
-    divisibleBy = this?.divisibleBy, 
-    max = this?.max, 
-    min = this?.min, 
+    divisibleBy = this?.divisibleBy,
+    max = this?.max,
+    min = this?.min,
     validateInput = this?.validateInput,
     validateValue = this?.validateValue
   } = {}
@@ -29,8 +29,7 @@ const Integer = function (
       msg += ' Leading zeros are not allowed.'
     }
     throw new Error(msg)
-  }
-  else if (allowLeadingZeros === true && input.match(anyDigitsRE) === null) {
+  } else if (allowLeadingZeros === true && input.match(anyDigitsRE) === null) {
     const msg = `${selfDescription} input value '${input}' does not appear to be an integer (leading zeros allowed).`
     throw new Error(msg)
   }

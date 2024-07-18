@@ -2,7 +2,7 @@ import { Integer } from '../integer'
 
 /**
  * Tests the `Integer` type. The tests drive off two test sets, `validInput` and `failureInput`. `validInput` is tested
- * by passing in the options directly as options. The `failureInput` test both the options and context settings. Also 
+ * by passing in the options directly as options. The `failureInput` test both the options and context settings. Also
  * note, the failure condition tests both the specific error messages and that the `name` setting is used in the error
  * message.
  */
@@ -36,15 +36,13 @@ describe('Integer', () => {
   // ^^ In order to keep the `failureInput` compact, we append the `name` and add the name check to the regex here
 
   test.each(validInput)('With input %s and options %p yields %s', (input, options, expected) =>
-      expect(Integer(input, options)).toBe(expected))
+    expect(Integer(input, options)).toBe(expected))
 
-  test.each(failureInput)
-    ('With input %s and options %p throws error matching %s', (input, options, errorMatch) => 
-      expect(() => Integer(input, options)).toThrow(new RegExp(errorMatch)))
+  test.each(failureInput)('With input %s and options %p throws error matching %s', (input, options, errorMatch) =>
+    expect(() => Integer(input, options)).toThrow(new RegExp(errorMatch)))
 
-  test.each(failureInput)
-    ('With input %s and context %p throws error matching %s', (input, context, errorMatch) => {
-      context.type = Integer
-      expect(() => context.type(input)).toThrow(new RegExp(errorMatch))
-    })
+  test.each(failureInput)('With input %s and context %p throws error matching %s', (input, context, errorMatch) => {
+    context.type = Integer
+    expect(() => context.type(input)).toThrow(new RegExp(errorMatch))
+  })
 })

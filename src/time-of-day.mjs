@@ -7,14 +7,14 @@ import { describeInput } from './lib/describe-input'
 import { typeChecks } from './lib/type-checks'
 
 const TimeOfDay = function (
-  input, 
-  { 
-    name = this?.name, 
+  input,
+  {
+    name = this?.name,
     max = this?.max,
     min = this?.min,
-    noEOD = this?.noEOD, 
-    validateInput = this?.validateInput, 
-    validateValue = this?.validateValue 
+    noEOD = this?.noEOD,
+    validateInput = this?.validateInput,
+    validateValue = this?.validateValue
   } = {}
 ) {
   const selfDescription = describeInput('Time of day', name)
@@ -36,12 +36,12 @@ const TimeOfDay = function (
   checkValidateInput(input, { selfDescription, validateInput })
 
   const value = getValue({ isEOD, militaryTimeMatch, timeMatch, twentyFourHourTimeMatch })
-  
+
   if (max !== undefined) {
-    max = TimeOfDay(max, { name: `${name}' constraint 'max` })
+    max = TimeOfDay(max, { name : `${name}' constraint 'max` })
   }
   if (min !== undefined) {
-    min = TimeOfDay(min, { name: `${name}' constraint 'min` })
+    min = TimeOfDay(min, { name : `${name}' constraint 'min` })
   }
   checkMaxMin({ input, limitToString : limitDescriptor, max, min, selfDescription, value })
 
@@ -50,7 +50,7 @@ const TimeOfDay = function (
   return value
 }
 
-const limitDescriptor = (limit) =>{
+const limitDescriptor = (limit) => {
   const hours = limit.getHours()
   const minutes = limit.getMinutes()
   const seconds = limit.getSeconds()

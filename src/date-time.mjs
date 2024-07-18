@@ -12,16 +12,16 @@ import { processRFC2822DateTime } from './lib/date-time/process-rfc-2822-date-ti
 import { typeChecks } from './lib/type-checks'
 
 const DateTime = function (
-  input, 
-  { 
-    name = this?.name, 
-    localTimezone = this?.localTimezone, 
+  input,
+  {
+    name = this?.name,
+    localTimezone = this?.localTimezone,
     max = this?.max,
     min = this?.min,
-    noEOD = this?.noEOD, 
-    validateInput = this?.validateInput, 
-    validateValue = this?.validateValue 
-} = {}) {
+    noEOD = this?.noEOD,
+    validateInput = this?.validateInput,
+    validateValue = this?.validateValue
+  } = {}) {
   const selfDescription = describeInput('Date-time', name)
   typeChecks(input, selfDescription)
 
@@ -34,7 +34,7 @@ const DateTime = function (
 
   const rfc2822Match = input.match(rfc2822DateRE)
   if (rfc2822Match !== null) {
-    value =  createValue(processRFC2822DateTime(selfDescription, rfc2822Match, localTimezone))
+    value = createValue(processRFC2822DateTime(selfDescription, rfc2822Match, localTimezone))
   }
 
   if (value === undefined) {
@@ -60,7 +60,7 @@ const DateTime = function (
   return value
 }
 
-const limitToString = (limit) =>{
+const limitToString = (limit) => {
   const year = limit.getYear()
   const month = limit.getMonth()
   const day = limit.getDayOfMonth()
@@ -90,7 +90,7 @@ const createValue = ([year, month, day, isEOD, hours, minutes, seconds, fracSeco
     getMilliseconds      : () => Math.round(fracSeconds * 1000),
     getTimezoneOffset    : () => timezoneOffset,
     getDate              : () => date,
-    // can't use 'date' for 'valueOf', because in a comparison, it doesn't recursively call 'valueOf()', so the date to 
+    // can't use 'date' for 'valueOf', because in a comparison, it doesn't recursively call 'valueOf()', so the date to
     // date comparison fails
     valueOf              : () => date.getTime()
   }
