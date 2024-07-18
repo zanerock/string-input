@@ -1,6 +1,8 @@
 import { iso8601DateTimeRE, rfc2822DateRE } from 'regex-repo'
 
 import { checkMaxMin } from './lib/check-max-min'
+import { checkValidateInput } from './lib/check-validate-input'
+import { checkValidateValue } from './lib/check-validate-value'
 import { convertTimezoneOffsetToString } from './lib/date-time/convert-timezone-offset-to-string'
 import { describeInput } from './lib/describe-input'
 import { makeDateTimeString } from './lib/date-time/make-date-time-string'
@@ -43,6 +45,8 @@ const DateTime = function (
     throw new Error(`${selfDescription} does not allow special EOD time '24:00'.`)
   }
 
+  checkValidateInput({ input, selfDescription, validateInput })
+
   if (typeof max === 'string') {
     max = DateTime(max, { name : `${name}' constraint 'max` })
   }
@@ -50,6 +54,8 @@ const DateTime = function (
     min = DateTime(min, { name : `${name}' constraint 'min` })
   }
   checkMaxMin({ input, limitToString, max, min, selfDescription, value })
+
+  checkValidateValue({ input, selfDescription, validateValue, value })
 
   return value
 }

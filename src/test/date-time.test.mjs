@@ -9,7 +9,9 @@ describe('DateTime', () => {
     ['1/2/2024 12:30', { max: '1/2/2024 12:31'}, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
     ['1/2/2024 12:30', { max: '1/2/2024 12:30'}, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
     ['1/2/2024 12:30', { min: '1/2/2024 12:29'}, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
-    ['1/2/2024 12:30', { min: '1/2/2024 12:30'}, [2024, 1, 2, false, 12, 30, 0, 0, undefined]]
+    ['1/2/2024 12:30', { min: '1/2/2024 12:30'}, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
+    ['1/2/2024 12:30', { validateInput: ({ input }) => /:/.test(input) }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]],
+    ['1/2/2024 12:30', { validateValue: ({ value }) => value.getYear() === 2024 }, [2024, 1, 2, false, 12, 30, 0, 0, undefined]]
   ]
 
   const failureInput = [
@@ -19,6 +21,8 @@ describe('DateTime', () => {
     ['1/2/2024 24:00', { noEOD : true }, 'does not allow special EOD time'],
     ['1/2/2024 12:30', { max: '1/2/2024 12:29'}, "must be less than or equal to '2024/01/02 12:29:00"],
     ['1/2/2024 12:30', { min: '1/2/2024 12:31'}, "must be greater than or equal to '2024/01/02 12:31:00"],
+    ['1/2/2024 1230', { validateInput: ({ input }) => /:/.test(input) }, 'failed custom input validation'],
+    ['1/2/2024 12:30', { validateValue: ({ value }) => value.getYear() === 2023 }, 'failed custom value validation']
   ]
     .map((params) => { params[1].name = 'foo'; params[2] = "Date-time 'foo'.*?" + params[2]; return params })
     .concat([ // the following reference the input name differently
