@@ -13,7 +13,7 @@ describe('CardNumber', () => {
     ['5019717010103742', { iins : ['490-501'] }],
     ['0123456789999', { iins : ['012-200'] }],
     ['0123-4567-89999', { validateInput : (input) => input.startsWith('0') }],
-    ['0123-4567-89999', { validateValue : (value) => /-/.test(value) === false }],
+    ['0123-4567-89999', { validateValue : (value) => /-/.test(value) === false }]
   ]
 
   const failureInput = [
@@ -31,7 +31,7 @@ describe('CardNumber', () => {
     ['5019717010103742', { iins : ['60-70'] }, 'invalid IIN'],
     ['5019717010103741', {}, 'typo somewhere'],
     ['0123456789999', { validateInput : (input) => input.startsWith('1') }, 'failed custom input validation'],
-    ['012345678-9999', { validateValue : (value) => value.startsWith('1') }, 'failed custom value validation'],
+    ['012345678-9999', { validateValue : (value) => value.startsWith('1') }, 'failed custom value validation']
   ].map((params) => { params[1].name = 'foo'; params[2] = "Card number 'foo'.*?" + params[2]; return params })
 
   test.each(validInput)('validates number %s with options %p', (acctNumber, options) => {
