@@ -8,11 +8,13 @@ const ValidatedString = function(
   {
     after = this?.after,
     before = this?.before,
+    endsWith = this?.endsWith,
     matchRE = this?.matchRE,
     maxLength = this?.maxLength,
     minLength = this?.minLength,
     name = this?.name,
     oneOf = this?.oneOf,
+    startsWith = this?.startsWith,
     validateInput = this?.validateInput,
     validateValue = this?.validateValue
   } = {}
@@ -25,6 +27,13 @@ const ValidatedString = function(
   }
   if (before !== undefined && [input, before].sort()[1] !== before) {
     throw new Error(`${selfDescription} input '${input}' must be lexicographically before '${before}'.`)
+  }
+
+  if (endsWith !== undefined && !input.endsWith(endsWith)) {
+    throw new Error(`${selfDescription} input '${input}' must end with '${endsWith}'.`)
+  }
+  if (startsWith !== undefined && !input.startsWith(startsWith)) {
+    throw new Error(`${selfDescription} input '${input}' must start with '${startsWith}'.`)
   }
 
   if (matchRE !== undefined) {

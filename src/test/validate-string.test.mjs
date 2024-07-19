@@ -4,6 +4,8 @@ const validInput = [
   ['foo', undefined],
   ['foo', { after: 'a' }],
   ['foo', { before: 'x' }],
+  ['foo', { endsWith: 'oo' }],
+  ['foo', { startsWith: 'f' }],
   ['foo', { matchRE: 'foo' }],
   ['foo', { matchRE: /foo/ }],
   ['foo', { maxLength: 4 }],
@@ -18,6 +20,8 @@ const validInput = [
 const failureInput = [
   ['foo', { after: 'm'}, "lexicographically after 'm'" ],
   ['foo', { before: 'a'}, "lexicographically before 'a'" ],
+  ['foo', { endsWith: 'a' }, "must end with 'a'"],
+  ['foo', { startsWith: 'a' }, "must start with 'a'"],
   ['foo', { matchRE: 'bar'}, 'must match /bar/'],
   ['foo', { maxLength: 2 }, 'must have length 2 or less'],
   ['foo', { minLength: 4 }, 'must have length 4 or greater'],
