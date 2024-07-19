@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1721432428966" clover="3.2.0">
+  <project timestamp="1721432428966" name="All files">
+    <metrics statements="556" coveredstatements="556" conditionals="852" coveredconditionals="838" methods="55" coveredmethods="55" elements="1463" coveredelements="1449" complexity="0" loc="556" ncloc="556" packages="3" files="21" classes="21"/>
+    <package name="src">
+      <metrics statements="393" coveredstatements="393" conditionals="616" coveredconditionals="609" methods="41" coveredmethods="41"/>
+      <file name="card-number.mjs" path="/Users/zane/playground/specify-input/src/card-number.mjs">
+        <metrics statements="47" coveredstatements="47" conditionals="53" coveredconditionals="52" methods="2" coveredmethods="2"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="15" count="42" type="cond" truecount="6" falsecount="0"/>
+        <line num="16" count="42" type="cond" truecount="6" falsecount="0"/>
+        <line num="17" count="42" type="cond" truecount="7" falsecount="1"/>
+        <line num="18" count="42" type="cond" truecount="6" falsecount="0"/>
+        <line num="19" count="42" type="cond" truecount="6" falsecount="0"/>
+        <line num="20" count="42" type="stmt"/>
+        <line num="21" count="42" type="cond" truecount="4" falsecount="0"/>
+        <line num="22" count="42" type="stmt"/>
+        <line num="23" count="42" type="stmt"/>
+        <line num="25" count="38" type="cond" truecount="1" falsecount="0"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="29" count="36" type="stmt"/>
+        <line num="30" count="36" type="cond" truecount="3" falsecount="0"/>
+        <line num="31" count="4" type="stmt"/>
+        <line num="34" count="32" type="cond" truecount="3" falsecount="0"/>
+        <line num="35" count="19" type="cond" truecount="1" falsecount="0"/>
+        <line num="36" count="5" type="cond" truecount="1" falsecount="0"/>
+        <line num="37" count="2" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
+        <line num="41" count="14" type="stmt"/>
+        <line num="42" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="43" count="6" type="stmt"/>
+        <line num="44" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="45" count="6" type="stmt"/>
+        <line num="46" count="6" type="cond" truecount="1" falsecount="0"/>
+        <line num="47" count="2" type="stmt"/>
+        <line num="49" count="4" type="stmt"/>
+        <line num="50" count="4" type="stmt"/>
+        <line num="51" count="4" type="stmt"/>
+        <line num="52" count="4" type="stmt"/>
+        <line num="53" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="58" count="8" type="stmt"/>
+        <line num="61" count="18" type="stmt"/>
+        <line num="63" count="16" type="cond" truecount="1" falsecount="0"/>
+        <line num="64" count="2" type="stmt"/>
+        <line num="67" count="14" type="stmt"/>
+        <line num="69" count="12" type="stmt"/>
+      </file>
+      <file name="date-time.mjs" path="/Users/zane/playground/specify-input/src/date-time.mjs">
+        <metrics statements="82" coveredstatements="82" conditionals="78" coveredconditionals="78" methods="16" coveredmethods="16"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="17" count="81" type="cond" truecount="6" falsecount="0"/>
+        <line num="18" count="81" type="cond" truecount="6" falsecount="0"/>
+        <line num="19" count="81" type="cond" truecount="6" falsecount="0"/>
+        <line num="20" count="81" type="cond" truecount="6" falsecount="0"/>
+        <line num="21" count="81" type="cond" truecount="6" falsecount="0"/>
+        <line num="22" count="81" type="cond" truecount="6" falsecount="0"/>
+        <line num="23" count="81" type="cond" truecount="6" falsecount="0"/>
+        <line num="24" count="81" type="cond" truecount="4" falsecount="0"/>
+        <line num="25" count="81" type="stmt"/>
+        <line num="26" count="81" type="stmt"/>
+        <line num="30" count="75" type="stmt"/>
+        <line num="31" count="75" type="cond" truecount="1" falsecount="0"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="35" count="75" type="stmt"/>
+        <line num="36" count="75" type="cond" truecount="1" falsecount="0"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="40" count="75" type="cond" truecount="1" falsecount="0"/>
+        <line num="41" count="73" type="stmt"/>
+        <line num="44" count="64" type="cond" truecount="3" falsecount="0"/>
+        <line num="45" count="2" type="stmt"/>
+        <line num="48" count="62" type="stmt"/>
+        <line num="53" count="60" type="cond" truecount="2" falsecount="0"/>
+        <line num="54" count="6" type="stmt"/>
+        <line num="55" count="54" type="cond" truecount="2" falsecount="0"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="58" count="53" type="cond" truecount="2" falsecount="0"/>
+        <line num="59" count="3" type="stmt"/>
+        <line num="60" count="50" type="cond" truecount="7" falsecount="0"/>
+        <line num="61" count="2" type="stmt"/>
+        <line num="63" count="56" type="cond" truecount="2" falsecount="0"/>
+        <line num="64" count="6" type="stmt"/>
+        <line num="65" count="50" type="cond" truecount="2" falsecount="0"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="68" count="49" type="cond" truecount="2" falsecount="0"/>
+        <line num="69" count="3" type="stmt"/>
+        <line num="70" count="46" type="cond" truecount="7" falsecount="0"/>
+        <line num="71" count="2" type="stmt"/>
+        <line num="73" count="52" type="stmt"/>
+        <line num="75" count="40" type="stmt"/>
+        <line num="77" count="38" type="stmt"/>
+        <line num="80" count="1" type="stmt"/>
+        <line num="81" count="12" type="stmt"/>
+        <line num="82" count="12" type="stmt"/>
+        <line num="83" count="12" type="stmt"/>
+        <line num="84" count="12" type="stmt"/>
+        <line num="85" count="12" type="stmt"/>
+        <line num="86" count="12" type="stmt"/>
+        <line num="87" count="12" type="stmt"/>
+        <line num="88" count="12" type="stmt"/>
+        <line num="90" count="12" type="stmt"/>
+        <line num="93" count="64" type="stmt"/>
+        <line num="94" count="64" type="stmt"/>
+        <line num="95" count="64" type="stmt"/>
+        <line num="96" count="64" type="stmt"/>
+        <line num="98" count="64" type="stmt"/>
+        <line num="99" count="6" type="stmt"/>
+        <line num="100" count="31" type="stmt"/>
+        <line num="101" count="28" type="stmt"/>
+        <line num="102" count="28" type="stmt"/>
+        <line num="103" count="18" type="stmt"/>
+        <line num="104" count="28" type="stmt"/>
+        <line num="105" count="28" type="stmt"/>
+        <line num="106" count="28" type="stmt"/>
+        <line num="107" count="28" type="stmt"/>
+        <line num="108" count="16" type="stmt"/>
+        <line num="109" count="16" type="stmt"/>
+        <line num="110" count="3" type="stmt"/>
+        <line num="114" count="44" type="stmt"/>
+      </file>
+      <file name="day.mjs" path="/Users/zane/playground/specify-input/src/day.mjs">
+        <metrics statements="63" coveredstatements="63" conditionals="123" coveredconditionals="120" methods="9" coveredmethods="9"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="13" count="77" type="cond" truecount="6" falsecount="0"/>
+        <line num="14" count="77" type="cond" truecount="6" falsecount="0"/>
+        <line num="15" count="77" type="cond" truecount="6" falsecount="0"/>
+        <line num="16" count="77" type="cond" truecount="6" falsecount="0"/>
+        <line num="17" count="77" type="cond" truecount="6" falsecount="0"/>
+        <line num="18" count="77" type="stmt"/>
+        <line num="19" count="77" type="cond" truecount="4" falsecount="0"/>
+        <line num="20" count="77" type="stmt"/>
+        <line num="21" count="77" type="stmt"/>
+        <line num="23" count="70" type="stmt"/>
+        <line num="24" count="70" type="stmt"/>
+        <line num="25" count="70" type="stmt"/>
+        <line num="27" count="70" type="cond" truecount="2" falsecount="0"/>
+        <line num="31" count="70" type="cond" truecount="2" falsecount="0"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="33" count="68" type="cond" truecount="1" falsecount="0"/>
+        <line num="34" count="6" type="stmt"/>
+        <line num="37" count="62" type="stmt"/>
+        <line num="39" count="60" type="cond" truecount="11" falsecount="0"/>
+        <line num="40" count="60" type="cond" truecount="14" falsecount="1"/>
+        <line num="42" count="60" type="cond" truecount="2" falsecount="0"/>
+        <line num="43" count="50" type="stmt"/>
+        <line num="45" count="10" type="cond" truecount="9" falsecount="1"/>
+        <line num="47" count="60" type="cond" truecount="14" falsecount="1"/>
+        <line num="51" count="60" type="stmt"/>
+        <line num="53" count="60" type="cond" truecount="2" falsecount="0"/>
+        <line num="54" count="6" type="stmt"/>
+        <line num="55" count="54" type="cond" truecount="2" falsecount="0"/>
+        <line num="56" count="3" type="stmt"/>
+        <line num="57" count="51" type="cond" truecount="6" falsecount="0"/>
+        <line num="58" count="3" type="stmt"/>
+        <line num="59" count="48" type="cond" truecount="3" falsecount="0"/>
+        <line num="60" count="2" type="stmt"/>
+        <line num="62" count="56" type="cond" truecount="2" falsecount="0"/>
+        <line num="63" count="6" type="stmt"/>
+        <line num="64" count="50" type="cond" truecount="2" falsecount="0"/>
+        <line num="65" count="3" type="stmt"/>
+        <line num="66" count="47" type="cond" truecount="6" falsecount="0"/>
+        <line num="67" count="3" type="stmt"/>
+        <line num="68" count="44" type="cond" truecount="3" falsecount="0"/>
+        <line num="69" count="2" type="stmt"/>
+        <line num="71" count="52" type="stmt"/>
+        <line num="73" count="16" type="stmt"/>
+        <line num="81" count="36" type="cond" truecount="1" falsecount="0"/>
+        <line num="82" count="2" type="stmt"/>
+        <line num="85" count="34" type="stmt"/>
+        <line num="87" count="34" type="stmt"/>
+        <line num="89" count="32" type="stmt"/>
+        <line num="92" count="34" type="stmt"/>
+        <line num="93" count="6" type="stmt"/>
+        <line num="94" count="19" type="stmt"/>
+        <line num="95" count="19" type="stmt"/>
+        <line num="96" count="22" type="stmt"/>
+        <line num="97" count="14" type="stmt"/>
+        <line num="98" count="1" type="stmt"/>
+      </file>
+      <file name="ein.mjs" path="/Users/zane/playground/specify-input/src/ein.mjs">
+        <metrics statements="17" coveredstatements="17" conditionals="23" coveredconditionals="23" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="10" count="14" type="cond" truecount="18" falsecount="0"/>
+        <line num="11" count="14" type="cond" truecount="4" falsecount="0"/>
+        <line num="12" count="14" type="stmt"/>
+        <line num="13" count="14" type="stmt"/>
+        <line num="15" count="14" type="stmt"/>
+        <line num="16" count="14" type="cond" truecount="1" falsecount="0"/>
+        <line num="17" count="6" type="stmt"/>
+        <line num="19" count="8" type="stmt"/>
+        <line num="20" count="6" type="stmt"/>
+        <line num="21" count="6" type="stmt"/>
+        <line num="23" count="4" type="stmt"/>
+      </file>
+      <file name="integer.mjs" path="/Users/zane/playground/specify-input/src/integer.mjs">
+        <metrics statements="34" coveredstatements="34" conditionals="57" coveredconditionals="57" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="14" count="33" type="cond" truecount="6" falsecount="0"/>
+        <line num="15" count="33" type="cond" truecount="6" falsecount="0"/>
+        <line num="16" count="33" type="cond" truecount="6" falsecount="0"/>
+        <line num="17" count="33" type="cond" truecount="6" falsecount="0"/>
+        <line num="18" count="33" type="cond" truecount="6" falsecount="0"/>
+        <line num="19" count="33" type="cond" truecount="6" falsecount="0"/>
+        <line num="20" count="33" type="cond" truecount="6" falsecount="0"/>
+        <line num="21" count="33" type="stmt"/>
+        <line num="22" count="33" type="cond" truecount="4" falsecount="0"/>
+        <line num="23" count="33" type="stmt"/>
+        <line num="24" count="33" type="stmt"/>
+        <line num="26" count="27" type="cond" truecount="4" falsecount="0"/>
+        <line num="27" count="6" type="stmt"/>
+        <line num="28" count="6" type="cond" truecount="1" falsecount="0"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="31" count="6" type="stmt"/>
+        <line num="32" count="21" type="cond" truecount="3" falsecount="0"/>
+        <line num="33" count="2" type="stmt"/>
+        <line num="34" count="2" type="stmt"/>
+        <line num="37" count="19" type="stmt"/>
+        <line num="38" count="17" type="stmt"/>
+        <line num="39" count="17" type="stmt"/>
+        <line num="40" count="13" type="cond" truecount="3" falsecount="0"/>
+        <line num="41" count="2" type="stmt"/>
+        <line num="43" count="11" type="stmt"/>
+        <line num="45" count="9" type="stmt"/>
+      </file>
+      <file name="numeric.mjs" path="/Users/zane/playground/specify-input/src/numeric.mjs">
+        <metrics statements="29" coveredstatements="29" conditionals="54" coveredconditionals="54" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="12" count="27" type="cond" truecount="6" falsecount="0"/>
+        <line num="13" count="27" type="cond" truecount="6" falsecount="0"/>
+        <line num="14" count="27" type="cond" truecount="6" falsecount="0"/>
+        <line num="15" count="27" type="cond" truecount="6" falsecount="0"/>
+        <line num="16" count="27" type="cond" truecount="6" falsecount="0"/>
+        <line num="17" count="27" type="cond" truecount="6" falsecount="0"/>
+        <line num="18" count="27" type="cond" truecount="6" falsecount="0"/>
+        <line num="19" count="27" type="stmt"/>
+        <line num="20" count="27" type="cond" truecount="4" falsecount="0"/>
+        <line num="21" count="27" type="stmt"/>
+        <line num="22" count="27" type="stmt"/>
+        <line num="24" count="27" type="cond" truecount="4" falsecount="0"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="26" count="25" type="cond" truecount="1" falsecount="0"/>
+        <line num="27" count="4" type="stmt"/>
+        <line num="30" count="21" type="stmt"/>
+        <line num="31" count="21" type="stmt"/>
+        <line num="32" count="21" type="stmt"/>
+        <line num="33" count="17" type="cond" truecount="3" falsecount="0"/>
+        <line num="34" count="2" type="stmt"/>
+        <line num="36" count="15" type="stmt"/>
+        <line num="38" count="15" type="stmt"/>
+      </file>
+      <file name="ssn.mjs" path="/Users/zane/playground/specify-input/src/ssn.mjs">
+        <metrics statements="17" coveredstatements="17" conditionals="23" coveredconditionals="23" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="10" count="18" type="cond" truecount="18" falsecount="0"/>
+        <line num="11" count="18" type="cond" truecount="4" falsecount="0"/>
+        <line num="12" count="18" type="stmt"/>
+        <line num="13" count="18" type="stmt"/>
+        <line num="15" count="18" type="stmt"/>
+        <line num="16" count="18" type="cond" truecount="1" falsecount="0"/>
+        <line num="17" count="10" type="stmt"/>
+        <line num="19" count="8" type="stmt"/>
+        <line num="20" count="6" type="stmt"/>
+        <line num="21" count="6" type="stmt"/>
+        <line num="23" count="4" type="stmt"/>
+      </file>
+      <file name="time-of-day.mjs" path="/Users/zane/playground/specify-input/src/time-of-day.mjs">
+        <metrics statements="62" coveredstatements="62" conditionals="111" coveredconditionals="108" methods="9" coveredmethods="9"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="12" count="39" type="cond" truecount="5" falsecount="1"/>
+        <line num="13" count="39" type="cond" truecount="6" falsecount="0"/>
+        <line num="14" count="39" type="cond" truecount="6" falsecount="0"/>
+        <line num="15" count="39" type="cond" truecount="6" falsecount="0"/>
+        <line num="16" count="39" type="cond" truecount="6" falsecount="0"/>
+        <line num="17" count="39" type="cond" truecount="6" falsecount="0"/>
+        <line num="18" count="39" type="stmt"/>
+        <line num="19" count="39" type="cond" truecount="4" falsecount="0"/>
+        <line num="20" count="39" type="stmt"/>
+        <line num="21" count="39" type="stmt"/>
+        <line num="23" count="35" type="stmt"/>
+        <line num="24" count="35" type="stmt"/>
+        <line num="25" count="35" type="stmt"/>
+        <line num="27" count="35" type="cond" truecount="4" falsecount="0"/>
+        <line num="28" count="3" type="stmt"/>
+        <line num="31" count="32" type="cond" truecount="10" falsecount="0"/>
+        <line num="32" count="32" type="cond" truecount="1" falsecount="0"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="36" count="31" type="stmt"/>
+        <line num="38" count="30" type="stmt"/>
+        <line num="40" count="30" type="cond" truecount="1" falsecount="0"/>
+        <line num="41" count="4" type="stmt"/>
+        <line num="43" count="29" type="cond" truecount="1" falsecount="0"/>
+        <line num="44" count="4" type="stmt"/>
+        <line num="46" count="28" type="stmt"/>
+        <line num="48" count="26" type="stmt"/>
+        <line num="50" count="25" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="54" count="2" type="stmt"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="56" count="2" type="stmt"/>
+        <line num="57" count="2" type="stmt"/>
+        <line num="59" count="2" type="stmt"/>
+        <line num="62" count="30" type="stmt"/>
+        <line num="64" count="30" type="cond" truecount="2" falsecount="0"/>
+        <line num="65" count="3" type="stmt"/>
+        <line num="66" count="3" type="stmt"/>
+        <line num="67" count="3" type="stmt"/>
+        <line num="68" count="3" type="stmt"/>
+        <line num="70" count="27" type="cond" truecount="2" falsecount="0"/>
+        <line num="71" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="72" count="5" type="cond" truecount="1" falsecount="0"/>
+        <line num="73" count="1" type="stmt"/>
+        <line num="76" count="22" type="cond" truecount="9" falsecount="1"/>
+        <line num="78" count="27" type="cond" truecount="14" falsecount="1"/>
+        <line num="79" count="27" type="cond" truecount="11" falsecount="0"/>
+        <line num="80" count="27" type="cond" truecount="11" falsecount="0"/>
+        <line num="81" count="27" type="stmt"/>
+        <line num="84" count="30" type="stmt"/>
+        <line num="85" count="19" type="stmt"/>
+        <line num="86" count="18" type="stmt"/>
+        <line num="87" count="18" type="stmt"/>
+        <line num="88" count="20" type="stmt"/>
+        <line num="89" count="18" type="stmt"/>
+        <line num="90" count="12" type="stmt"/>
+      </file>
+      <file name="validated-string.mjs" path="/Users/zane/playground/specify-input/src/validated-string.mjs">
+        <metrics statements="42" coveredstatements="42" conditionals="94" coveredconditionals="94" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="9" count="34" type="cond" truecount="6" falsecount="0"/>
+        <line num="10" count="34" type="cond" truecount="6" falsecount="0"/>
+        <line num="11" count="34" type="cond" truecount="6" falsecount="0"/>
+        <line num="12" count="34" type="cond" truecount="6" falsecount="0"/>
+        <line num="13" count="34" type="cond" truecount="6" falsecount="0"/>
+        <line num="14" count="34" type="cond" truecount="6" falsecount="0"/>
+        <line num="15" count="34" type="cond" truecount="6" falsecount="0"/>
+        <line num="16" count="34" type="cond" truecount="6" falsecount="0"/>
+        <line num="17" count="34" type="cond" truecount="6" falsecount="0"/>
+        <line num="18" count="34" type="cond" truecount="6" falsecount="0"/>
+        <line num="19" count="34" type="cond" truecount="6" falsecount="0"/>
+        <line num="20" count="34" type="stmt"/>
+        <line num="21" count="34" type="cond" truecount="4" falsecount="0"/>
+        <line num="22" count="34" type="stmt"/>
+        <line num="23" count="34" type="stmt"/>
+        <line num="25" count="34" type="cond" truecount="3" falsecount="0"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="28" count="32" type="cond" truecount="3" falsecount="0"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="32" count="30" type="cond" truecount="3" falsecount="0"/>
+        <line num="33" count="2" type="stmt"/>
+        <line num="35" count="28" type="cond" truecount="3" falsecount="0"/>
+        <line num="36" count="2" type="stmt"/>
+        <line num="39" count="26" type="cond" truecount="1" falsecount="0"/>
+        <line num="40" count="4" type="cond" truecount="1" falsecount="0"/>
+        <line num="41" count="3" type="stmt"/>
+        <line num="43" count="4" type="cond" truecount="1" falsecount="0"/>
+        <line num="44" count="2" type="stmt"/>
+        <line num="48" count="24" type="cond" truecount="3" falsecount="0"/>
+        <line num="49" count="2" type="stmt"/>
+        <line num="51" count="22" type="cond" truecount="3" falsecount="0"/>
+        <line num="52" count="2" type="stmt"/>
+        <line num="55" count="20" type="cond" truecount="3" falsecount="0"/>
+        <line num="56" count="2" type="stmt"/>
+        <line num="59" count="18" type="stmt"/>
+        <line num="60" count="16" type="stmt"/>
+        <line num="62" count="14" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.lib">
+      <metrics statements="21" coveredstatements="21" conditionals="26" coveredconditionals="24" methods="6" coveredmethods="6"/>
+      <file name="check-max-min.mjs" path="/Users/zane/playground/specify-input/src/lib/check-max-min.mjs">
+        <metrics statements="5" coveredstatements="5" conditionals="8" coveredconditionals="8" methods="2" coveredmethods="2"/>
+        <line num="1" count="170" type="cond" truecount="2" falsecount="0"/>
+        <line num="2" count="170" type="cond" truecount="3" falsecount="0"/>
+        <line num="3" count="19" type="stmt"/>
+        <line num="5" count="151" type="cond" truecount="3" falsecount="0"/>
+        <line num="6" count="19" type="stmt"/>
+      </file>
+      <file name="check-validate-input.mjs" path="/Users/zane/playground/specify-input/src/lib/check-validate-input.mjs">
+        <metrics statements="5" coveredstatements="5" conditionals="6" coveredconditionals="5" methods="1" coveredmethods="1"/>
+        <line num="1" count="247" type="cond" truecount="3" falsecount="1"/>
+        <line num="2" count="247" type="cond" truecount="1" falsecount="0"/>
+        <line num="4" count="24" type="stmt"/>
+        <line num="6" count="24" type="cond" truecount="1" falsecount="0"/>
+        <line num="7" count="15" type="stmt"/>
+      </file>
+      <file name="check-validate-value.mjs" path="/Users/zane/playground/specify-input/src/lib/check-validate-value.mjs">
+        <metrics statements="5" coveredstatements="5" conditionals="6" coveredconditionals="5" methods="1" coveredmethods="1"/>
+        <line num="1" count="168" type="cond" truecount="3" falsecount="1"/>
+        <line num="2" count="168" type="cond" truecount="1" falsecount="0"/>
+        <line num="4" count="24" type="stmt"/>
+        <line num="6" count="24" type="cond" truecount="1" falsecount="0"/>
+        <line num="7" count="15" type="stmt"/>
+      </file>
+      <file name="describe-input.mjs" path="/Users/zane/playground/specify-input/src/lib/describe-input.mjs">
+        <metrics statements="1" coveredstatements="1" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="1" count="365" type="cond" truecount="2" falsecount="0"/>
+      </file>
+      <file name="type-checks.mjs" path="/Users/zane/playground/specify-input/src/lib/type-checks.mjs">
+        <metrics statements="5" coveredstatements="5" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+        <line num="1" count="9" type="stmt"/>
+        <line num="2" count="365" type="cond" truecount="3" falsecount="0"/>
+        <line num="3" count="20" type="stmt"/>
+        <line num="5" count="345" type="cond" truecount="1" falsecount="0"/>
+        <line num="6" count="7" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.lib.date-time">
+      <metrics statements="142" coveredstatements="142" conditionals="210" coveredconditionals="205" methods="8" coveredmethods="8"/>
+      <file name="convert-month-name.mjs" path="/Users/zane/playground/specify-input/src/lib/date-time/convert-month-name.mjs">
+        <metrics statements="14" coveredstatements="14" conditionals="12" coveredconditionals="12" methods="1" coveredmethods="1"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="74" type="cond" truecount="12" falsecount="0"/>
+        <line num="3" count="63" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+      </file>
+      <file name="convert-timezone-offset-to-string.mjs" path="/Users/zane/playground/specify-input/src/lib/date-time/convert-timezone-offset-to-string.mjs">
+        <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="78" type="stmt"/>
+        <line num="3" count="78" type="stmt"/>
+        <line num="7" count="78" type="cond" truecount="2" falsecount="0"/>
+        <line num="11" count="78" type="stmt"/>
+      </file>
+      <file name="get-timezone-offset.mjs" path="/Users/zane/playground/specify-input/src/lib/date-time/get-timezone-offset.mjs">
+        <metrics statements="18" coveredstatements="18" conditionals="11" coveredconditionals="11" methods="1" coveredmethods="1"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="3" count="107" type="stmt"/>
+        <line num="4" count="107" type="cond" truecount="2" falsecount="0"/>
+        <line num="7" count="41" type="stmt"/>
+        <line num="8" count="66" type="cond" truecount="4" falsecount="0"/>
+        <line num="9" count="37" type="stmt"/>
+        <line num="11" count="29" type="stmt"/>
+        <line num="12" count="29" type="cond" truecount="2" falsecount="0"/>
+        <line num="13" count="25" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="25" type="stmt"/>
+        <line num="15" count="25" type="stmt"/>
+        <line num="16" count="25" type="stmt"/>
+        <line num="18" count="4" type="stmt"/>
+        <line num="19" count="4" type="stmt"/>
+        <line num="20" count="4" type="cond" truecount="1" falsecount="0"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="23" count="3" type="stmt"/>
+        <line num="24" count="3" type="stmt"/>
+      </file>
+      <file name="make-date-time-string.mjs" path="/Users/zane/playground/specify-input/src/lib/date-time/make-date-time-string.mjs">
+        <metrics statements="5" coveredstatements="5" conditionals="3" coveredconditionals="3" methods="1" coveredmethods="1"/>
+        <line num="1" count="117" type="stmt"/>
+        <line num="3" count="117" type="stmt"/>
+        <line num="7" count="117" type="cond" truecount="1" falsecount="0"/>
+        <line num="8" count="72" type="stmt"/>
+        <line num="11" count="117" type="stmt"/>
+      </file>
+      <file name="process-idiomatic-date-time.mjs" path="/Users/zane/playground/specify-input/src/lib/date-time/process-idiomatic-date-time.mjs">
+        <metrics statements="48" coveredstatements="48" conditionals="154" coveredconditionals="149" methods="1" coveredmethods="1"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="16" count="90" type="stmt"/>
+        <line num="17" count="90" type="stmt"/>
+        <line num="18" count="90" type="stmt"/>
+        <line num="19" count="90" type="stmt"/>
+        <line num="20" count="90" type="stmt"/>
+        <line num="21" count="90" type="stmt"/>
+        <line num="23" count="90" type="cond" truecount="2" falsecount="0"/>
+        <line num="27" count="90" type="cond" truecount="1" falsecount="0"/>
+        <line num="28" count="10" type="stmt"/>
+        <line num="32" count="80" type="stmt"/>
+        <line num="33" count="80" type="stmt"/>
+        <line num="34" count="80" type="stmt"/>
+        <line num="35" count="80" type="stmt"/>
+        <line num="37" count="80" type="stmt"/>
+        <line num="38" count="80" type="stmt"/>
+        <line num="40" count="80" type="cond" truecount="2" falsecount="0"/>
+        <line num="44" count="80" type="cond" truecount="2" falsecount="0"/>
+        <line num="45" count="3" type="stmt"/>
+        <line num="46" count="77" type="cond" truecount="1" falsecount="0"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="50" count="76" type="cond" truecount="11" falsecount="0"/>
+        <line num="51" count="76" type="cond" truecount="14" falsecount="1"/>
+        <line num="53" count="76" type="cond" truecount="2" falsecount="0"/>
+        <line num="54" count="6" type="stmt"/>
+        <line num="55" count="6" type="stmt"/>
+        <line num="57" count="70" type="cond" truecount="9" falsecount="1"/>
+        <line num="59" count="76" type="cond" truecount="14" falsecount="1"/>
+        <line num="61" count="76" type="cond" truecount="11" falsecount="0"/>
+        <line num="63" count="76" type="cond" truecount="2" falsecount="0"/>
+        <line num="64" count="4" type="stmt"/>
+        <line num="65" count="4" type="stmt"/>
+        <line num="66" count="4" type="stmt"/>
+        <line num="67" count="4" type="stmt"/>
+        <line num="69" count="72" type="cond" truecount="14" falsecount="1"/>
+        <line num="70" count="72" type="cond" truecount="1" falsecount="0"/>
+        <line num="71" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="72" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="73" count="1" type="stmt"/>
+        <line num="76" count="72" type="cond" truecount="14" falsecount="1"/>
+        <line num="77" count="72" type="cond" truecount="11" falsecount="0"/>
+        <line num="78" count="72" type="cond" truecount="11" falsecount="0"/>
+        <line num="81" count="76" type="cond" truecount="16" falsecount="0"/>
+        <line num="83" count="76" type="stmt"/>
+        <line num="85" count="76" type="stmt"/>
+      </file>
+      <file name="process-iso-8601-date-time.mjs" path="/Users/zane/playground/specify-input/src/lib/date-time/process-iso-8601-date-time.mjs">
+        <metrics statements="39" coveredstatements="39" conditionals="26" coveredconditionals="26" methods="2" coveredmethods="2"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="19" type="cond" truecount="2" falsecount="0"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="18" type="cond" truecount="1" falsecount="0"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="12" count="17" type="stmt"/>
+        <line num="13" count="17" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="17" type="cond" truecount="2" falsecount="0"/>
+        <line num="15" count="17" type="stmt"/>
+        <line num="16" count="17" type="cond" truecount="2" falsecount="0"/>
+        <line num="19" count="17" type="cond" truecount="5" falsecount="0"/>
+        <line num="20" count="4" type="stmt"/>
+        <line num="21" count="4" type="stmt"/>
+        <line num="22" count="4" type="stmt"/>
+        <line num="23" count="13" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="3" type="stmt"/>
+        <line num="25" count="3" type="stmt"/>
+        <line num="26" count="3" type="stmt"/>
+        <line num="27" count="3" type="stmt"/>
+        <line num="28" count="3" type="stmt"/>
+        <line num="29" count="3" type="stmt"/>
+        <line num="31" count="3" type="stmt"/>
+        <line num="33" count="10" type="stmt"/>
+        <line num="34" count="10" type="cond" truecount="4" falsecount="0"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="38" count="2" type="stmt"/>
+        <line num="39" count="2" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="42" count="2" type="stmt"/>
+        <line num="44" count="7" type="stmt"/>
+        <line num="45" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="49" count="17" type="cond" truecount="2" falsecount="0"/>
+        <line num="51" count="17" type="stmt"/>
+        <line num="53" count="17" type="stmt"/>
+        <line num="56" count="5" type="stmt"/>
+      </file>
+      <file name="process-rfc-2822-date-time.mjs" path="/Users/zane/playground/specify-input/src/lib/date-time/process-rfc-2822-date-time.mjs">
+        <metrics statements="13" coveredstatements="13" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="6" type="stmt"/>
+        <line num="6" count="6" type="stmt"/>
+        <line num="7" count="6" type="stmt"/>
+        <line num="8" count="6" type="stmt"/>
+        <line num="9" count="6" type="stmt"/>
+        <line num="10" count="6" type="stmt"/>
+        <line num="11" count="6" type="stmt"/>
+        <line num="12" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="15" count="6" type="stmt"/>
+        <line num="17" count="6" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
