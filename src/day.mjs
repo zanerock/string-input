@@ -46,7 +46,7 @@ const Day = function (
   }
   const day = parseInt(intlMatch?.[4] || usMatch?.[2] || rfc2822Match?.[2])
 
-  // we set the date explicitly like this because Date parses things inconsistently. E.g. (as of Node 21.5.0), 
+  // we set the date explicitly like this because Date parses things inconsistently. E.g. (as of Node 21.5.0),
   // '-2024-01-02' parses as '2024-01-02T06:00:00.000Z', while '01/02/-2024' is just invalid.
   const date = new Date(year, month - 1, day)
 
@@ -82,7 +82,7 @@ const Day = function (
     throw new Error(`${selfDescription} input '${input}' looks syntactically valid, but specifies an invalid day for the given month/year.`)
   }
 
-  const value = createValue({ day, month, year, date})
+  const value = createValue({ day, month, year, date })
 
   checkValidateValue(value, { input, selfDescription, validateValue })
 

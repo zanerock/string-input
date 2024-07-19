@@ -8,23 +8,23 @@ const validInputs = [
   ['1e2', undefined, 100],
   ['1.55e3', undefined, 1550],
   ['0.5', undefined, 0.5],
-  ['01.5', { allowLeadingZeros: true }, 1.5],
-  ['1.5', { max: 1.6 }, 1.5],
-  ['1.5', { max: 1.5 }, 1.5],
-  ['1.5', { min: 1.4 }, 1.5],
-  ['1.5', { min: 1.5 }, 1.5],
-  ['1.5', { divisibleBy: 0.5 }, 1.5],
+  ['01.5', { allowLeadingZeros : true }, 1.5],
+  ['1.5', { max : 1.6 }, 1.5],
+  ['1.5', { max : 1.5 }, 1.5],
+  ['1.5', { min : 1.4 }, 1.5],
+  ['1.5', { min : 1.5 }, 1.5],
+  ['1.5', { divisibleBy : 0.5 }, 1.5],
   ['1.5', { validateInput : (input) => input.endsWith('5') }, 1.5],
-  ['1.5', { validateValue : (value) => value === 1.5 }, 1.5],
+  ['1.5', { validateValue : (value) => value === 1.5 }, 1.5]
 ]
 
 const failureInput = [
   ['01', {}, 'leading zeros'],
   [' 1', {}, 'space'],
   ['1 ', {}, 'space'],
-  ['1.6', { max: 1.5 }, "less than or equal to '1.5'"],
-  ['1.4', { min: 1.5 }, "greater than or equal to '1.5'"],
-  ['1.6', { divisibleBy: 1.5 }, "divisible by '1.5'"]
+  ['1.6', { max : 1.5 }, "less than or equal to '1.5'"],
+  ['1.4', { min : 1.5 }, "greater than or equal to '1.5'"],
+  ['1.6', { divisibleBy : 1.5 }, "divisible by '1.5'"]
 ].map((params) => { params[1].name = 'foo'; params[2] = "Numeric 'foo'.*?" + params[2]; return params })
 
 describe('Numeric', () => {

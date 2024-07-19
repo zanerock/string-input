@@ -48,27 +48,24 @@ const DateTime = function (
   checkValidateInput(input, { selfDescription, validateInput })
 
   // we compare DateTime objects so we can preserve the timezone in the `limitToString()` function. The problem is that
-  // when things are converted to `Date`, the original TZ is lost and `Date.getTimezoneOffset()` always shows the local 
+  // when things are converted to `Date`, the original TZ is lost and `Date.getTimezoneOffset()` always shows the local
   // offset, not the offset of the original date input itself.
   if (typeof max === 'string') {
     max = DateTime(max, { name : `${name}' constraint 'max` })
   } else if (typeof max === 'number') {
     const maxDate = new Date(max)
     max = DateTime(makeDateTimeString([maxDate.getUTCFullYear(), maxDate.getUTCMonth() + 1, maxDate.getUTCDate(), maxDate.getUTCHours(), maxDate.getUTCMinutes(), maxDate.getUTCSeconds(), maxDate.getUTCMilliseconds() / 1000, 'Z']))
-  }
-  else if (max instanceof Date) {
+  } else if (max instanceof Date) {
     max = DateTime(makeDateTimeString([max.getUTCFullYear(), max.getUTCMonth() + 1, max.getUTCDate(), max.getUTCHours(), max.getUTCMinutes(), max.getUTCSeconds(), max.getUTCMilliseconds() / 1000, 'Z']))
   } else if (max !== undefined && max.isDateTimeObject?.() !== true) {
     throw new Error(`${selfDescription} constraint 'max' has nonconvertible type. Use 'string', 'number', 'Date', or 'DateTime'.`)
   }
   if (typeof min === 'string') {
     min = DateTime(min, { name : `${name}' constraint 'min` })
-  }
-  else if (typeof min === 'number') {
+  } else if (typeof min === 'number') {
     const minDate = new Date(min)
     min = DateTime(makeDateTimeString([minDate.getUTCFullYear(), minDate.getUTCMonth() + 1, minDate.getUTCDate(), minDate.getUTCHours(), minDate.getUTCMinutes(), minDate.getUTCSeconds(), minDate.getUTCMilliseconds() / 1000, 'Z']))
-  }
-  else if (min instanceof Date) {
+  } else if (min instanceof Date) {
     min = DateTime(makeDateTimeString([min.getUTCFullYear(), min.getUTCMonth() + 1, min.getUTCDate(), min.getUTCHours(), min.getUTCMinutes(), min.getUTCSeconds(), min.getUTCMilliseconds() / 1000, 'Z']))
   } else if (min !== undefined && min.isDateTimeObject?.() !== true) {
     throw new Error(`${selfDescription} constraint 'min' has nonconvertible type. Use 'string', 'number', Date', or 'DateTime'.`)
@@ -112,9 +109,9 @@ const createValue = ([year, month, day, isEOD, hours, minutes, seconds, fracSeco
     getTimezoneOffset    : () => timezoneOffset,
     getDate              : () => date,
     // we return epoch seconds rather than date so that '<' and similar work; the problem is they don't call 'valueOf()'
-    // recursively, so if we returned a date, it would compare dates directly (which doesn't work) rather than 
+    // recursively, so if we returned a date, it would compare dates directly (which doesn't work) rather than
     // 'date.valueOf()'
-    valueOf             : () => date.getTime()
+    valueOf              : () => date.getTime()
   }
 }
 
