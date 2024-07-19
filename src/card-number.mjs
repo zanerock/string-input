@@ -58,13 +58,13 @@ const CardNumber = function (
     throw new Error(`${selfDescription} input '${input}' is an invalid IIN or partial IIN. Must match one of ${iins.join(', ')}.`)
   }
 
-  checkValidateInput({ input, selfDescription, validateInput })
+  checkValidateInput(input, { selfDescription, validateInput })
 
   if (luhn.validate(numberString) !== true) {
     throw new Error(`${selfDescription} failed the check-digit validation. This most likely means there's a typo somewhere in the number.`)
   }
 
-  checkValidateValue({ input, value : numberString, validateValue })
+  checkValidateValue(numberString, { input, selfDescription, validateValue })
 
   return numberString
 }
