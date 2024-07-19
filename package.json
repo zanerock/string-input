@@ -1,17 +1,35 @@
 {
   "name": "specify-input",
   "version": "1.0.0-alpha.0",
-  "description": "",
+  "description": "A simple input specification and validation library that can be easily extended with other libraries.",
   "main": "dist/specify-input.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "make",
+    "lint": "make lint",
+    "lint:fix": "make lint-fix",
+    "test": "make test",
+    "prepack": "make build",
+    "preversion": "npm test && make lint",
+    "qa": "make qa"
   },
   "keywords": [],
   "author": "Zane Rockenbaugh <zane@liquid-labs.com>",
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "repository": "git+ssh://git@github.com/liquid-labs/specify-input.git",
   "bugs": {
     "url": "https://github.com/liquid-labs/specify-input/issues"
   },
-  "homepage": "https://github.com/liquid-labs/specify-input#readme"
+  "homepage": "https://github.com/liquid-labs/specify-input#readme",
+  "_comply": {
+    "orgKey": "@liquid-labs"
+  },
+  "devDependencies": {
+    "@liquid-labs/sdlc-resource-babel-and-rollup": "^1.0.0-alpha.8",
+    "@liquid-labs/sdlc-resource-eslint": "^1.0.0-alpha.11",
+    "@liquid-labs/sdlc-resource-jest": "^1.0.0-alpha.7"
+  },
+  "dependencies": {
+    "luhn": "^2.4.1",
+    "regex-repo": "^2.3.0"
+  }
 }
