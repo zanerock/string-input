@@ -3,7 +3,7 @@ import { checkValidateValue } from './lib/check-validate-value'
 import { describeInput } from './lib/describe-input'
 import { typeChecks } from './lib/type-checks'
 
-const ValidatedString = function(
+const ValidatedString = function (
   input,
   {
     after = this?.after,
