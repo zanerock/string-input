@@ -14,7 +14,7 @@ const EIN = function (
 
   const einMatch = input.match(einRE)
   if (einMatch === null) {
-    throw Error(`${selfDescription} input '${input}' is not a valid EIN. Ensure there are nine digits and a valid area code.`)
+    throw new Error(`${selfDescription} input '${input}' is not a valid EIN. Ensure there are nine digits and a valid area code.`)
   }
   checkValidateInput(input, { selfDescription, validateInput })
   const value = input.slice(0, 2) + '-' + input.slice(-7)
