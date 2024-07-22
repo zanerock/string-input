@@ -16,3 +16,9 @@ await writeFile(
   validTLDsPath,
   'const validTLDs = ' + JSON.stringify(validTLDs, null, '  ') + '\n\nexport { validTLDs }\n',
   { encoding : 'utf8' })
+
+// self-test results
+const { validTLDs : tlds } = await import(validTLDsPath)
+if (!tlds || tlds.COM !== true) {
+  throw new Error('Something went wrong with the TLD import (failed self-check).')
+}
