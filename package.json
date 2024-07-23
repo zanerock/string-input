@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "luhn": "^2.4.1",
+    "regex": "^3.0.0",
     "regex-repo": "^2.3.0"
   }
 }

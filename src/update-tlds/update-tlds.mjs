@@ -1,24 +1,23 @@
 import { writeFile } from 'node:fs/promises'
-import { dirname, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { resolve } from 'node:path'
 
-// this file is run directly without transformation by make, so need to specify the extension
-import { Email } from '../email.mjs'
+import { Email } from '../email'
 
-const validTLDs = await Email.updateLatestTLDs(true)
+// this gets compiled and run as a CJS file, so we have to use a immediately self-executing function
+(async () => {
+  const validTLDs = await Email.updateLatestTLDs(true)
 
-const __dirname = /* for node 20.11/20.2+ */ import.meta.dirname /* for node 10.12+ */ ||
-  dirname(fileURLToPath(import.meta.url))
+  // this gets compiled and executed from '~/tool'
+  const validTLDsPath = resolve('src', 'lib', 'valid-tlds.mjs')
 
-const validTLDsPath = resolve(__dirname, '..', 'lib', 'valid-tlds.mjs')
+  await writeFile(
+    validTLDsPath,
+    'const validTLDs = ' + JSON.stringify(validTLDs, null, '  ') + '\n\nexport { validTLDs }\n',
+    { encoding : 'utf8' })
 
-await writeFile(
-  validTLDsPath,
-  'const validTLDs = ' + JSON.stringify(validTLDs, null, '  ') + '\n\nexport { validTLDs }\n',
-  { encoding : 'utf8' })
-
-// self-test results
-const { validTLDs : tlds } = await import(validTLDsPath)
-if (!tlds || tlds.COM !== true) {
-  throw new Error('Something went wrong with the TLD import (failed self-check).')
-}
+  // self-test results
+  const { validTLDs : tlds } = await import(validTLDsPath)
+  if (!tlds || tlds.COM !== true) {
+    throw new Error('Something went wrong with the TLD import (failed self-check).')
+  }
+})()
