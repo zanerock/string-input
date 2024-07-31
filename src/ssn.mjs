@@ -14,7 +14,7 @@ const SSN = function (
 
   const ssnMatch = input.match(ssnRE)
   if (ssnMatch === null) {
-    throw Error(`${selfDescription} input '${input}' is not a valid SSN. Ensure there are nine digits and a valid area code.`)
+    throw new Error(`${selfDescription} input '${input}' is not a valid SSN. Ensure there are nine digits and a valid area code.`)
   }
   checkValidateInput(input, { selfDescription, validateInput })
   const value = `${ssnMatch[1]}-${ssnMatch[2]}-${ssnMatch[3]}`

@@ -1,7 +1,7 @@
 {
-  "name": "specify-input",
+  "name": "string-input",
   "version": "1.0.0-alpha.0",
-  "description": "A simple input specification and validation library that can be easily extended with other libraries.",
+  "description": "A library to validate user input strings; compatible with command-line-args.",
   "main": "dist/specify-input.js",
   "scripts": {
     "build": "make",
@@ -15,21 +15,32 @@
   "keywords": [],
   "author": "Zane Rockenbaugh <zane@liquid-labs.com>",
   "license": "Apache-2.0",
-  "repository": "git+ssh://git@github.com/liquid-labs/specify-input.git",
-  "bugs": {
-    "url": "https://github.com/liquid-labs/specify-input/issues"
+  "repository": {
+    "url": "git+ssh://git@github.com/liquid-labs/string-input.git",
+    "type": "git"
   },
-  "homepage": "https://github.com/liquid-labs/specify-input#readme",
+  "bugs": {
+    "url": "https://github.com/liquid-labs/string-input/issues"
+  },
+  "homepage": "https://github.com/liquid-labs/string-input#readme",
   "_comply": {
     "orgKey": "@liquid-labs"
   },
   "devDependencies": {
-    "@liquid-labs/sdlc-resource-babel-and-rollup": "^1.0.0-alpha.8",
+    "@liquid-labs/sdlc-resource-babel-and-rollup": "file:.yalc/@liquid-labs/sdlc-resource-babel-and-rollup",
     "@liquid-labs/sdlc-resource-eslint": "^1.0.0-alpha.11",
     "@liquid-labs/sdlc-resource-jest": "^1.0.0-alpha.7"
   },
   "dependencies": {
     "luhn": "^2.4.1",
-    "regex-repo": "^2.3.0"
+    "regex": "^3.0.0",
+    "regex-repo": "file:.yalc/regex-repo"
+  },
+  "_sdlc": {
+    "linting": {
+      "ignores": [
+        "src/lib/valid-tlds.mjs"
+      ]
+    }
   }
 }
