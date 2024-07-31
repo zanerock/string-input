@@ -34,7 +34,7 @@
   "dependencies": {
     "luhn": "^2.4.1",
     "regex": "^3.0.0",
-    "regex-repo": "file:.yalc/regex-repo"
+    "regex-repo": "^4.0.0"
   },
   "_sdlc": {
     "linting": {
