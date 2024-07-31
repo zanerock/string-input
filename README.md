@@ -2,6 +2,8 @@
 
 A library to validate user input strings; compatible with command-line-args.
 
+This package is currently a prototype.
+
 ## Install
 
 ```bash
