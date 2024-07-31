@@ -35,5 +35,12 @@
     "luhn": "^2.4.1",
     "regex": "^3.0.0",
     "regex-repo": "file:.yalc/regex-repo"
+  },
+  "_sdlc": {
+    "linting": {
+      "ignores": [
+        "src/lib/valid-tlds.mjs"
+      ]
+    }
   }
 }
