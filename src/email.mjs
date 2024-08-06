@@ -70,10 +70,10 @@ import { typeChecks } from './lib/type-checks'
  *  `allowLocahost`.`
  * @param {boolean} options.allowLocalhost - Allows `localhost` domain value or (when `allowIPV6` and/or `allowIPV4`
  *   also set true) loopback IP addresses.
- * @param {boolean} options.allowedTLDs - By default, the TLD portion of a domain name will be validated against known
- *   good TLDs. To limit this list or use an updated list, set this value to an array of acceptable TLDs or a map with
- *   valid TLD keys (the value is not used). You can use the `getLatestTLDs`, also exported by this package, to get an
- *   object defining the most current TLDs as registered with ICANN. See `arbitraryTLDs`.
+ * @param {object<string,true>} options.allowedTLDs - By default, the TLD portion of a domain name will be validated 
+ *   against known good TLDs. To limit this list or use an updated list, set this value to an array of acceptable TLDs 
+ *   or a map with valid TLD keys (the value is not used). You can use the `getLatestTLDs`, also exported by this 
+ *   package, to get an object defining the most current TLDs as registered with ICANN. See `arbitraryTLDs`.
  * @param {boolean} options.allowQuotedLocalPart - Overrides default restriction and allows quoted username/local parts.
  * @param {boolean} options.arbitraryTLDs - Skips the 'known TLD' check and allows any validly formatted TLD name. This
  *   is still restricted by the TLD name restrictions which are tighter than standard domain labels.
@@ -124,4 +124,18 @@ const Email = function (input, options = this || {}) {
   return result
 }
 
-export { Email, getLatestTLDs }
+export {
+  Email, 
+  /**
+   * Dynamically retrieves the latest list of valid TLDs from the Internet Assigned Numbers Authority (IANA).
+   * International domains are decoded and both the decoded (international domain) and encoded ('xn--`) domain will be
+   * present in the results object as both represent valid domains from a user's point of view. The resolved result can 
+   * be passed to the `Email` ``
+   * @function
+   * @returns {Promise<object>} A Promise resolving to an object whose keys are valid domains; the value of each entry 
+   *   is `true`. ASCII characters are always lowercased, but the international domains are not transformed after 
+   *   decoding and may contain uppercase non-ASCII unicode characters per [RFC 4343](https://www.rfc-editor.org/rfc/
+   *   rfc4343).
+   */
+  getLatestTLDs
+}
