@@ -1,5 +1,5 @@
 # string-input
-[![coverage: 100%](./.readme-assets/coverage.svg)](https://github.com/liquid-labs/string-input/pulls?q=is%3Apr+is%3Aclosed)
+[![coverage: 100%](./.readme-assets/coverage.svg)](https://github.com/liquid-labs/string-input/pulls?q=is%3Apr+is%3Aclosed) [![Unit tests](https://github.com/liquid-labs/string-input/actions/workflows/unit-tests-node.yaml/badge.svg)](https://github.com/liquid-labs/string-input/actions/workflows/unit-tests-node.yaml)
 
 A library to validate user input strings; compatible with command-line-args.
 
