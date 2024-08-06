@@ -7,16 +7,37 @@ import { convertMonthName } from './lib/date-time/convert-month-name'
 import { describeInput } from './lib/describe-input'
 import { typeChecks } from './lib/type-checks'
 
-const Day = function (
-  input,
-  {
-    name = this?.name,
-    max = this?.max,
-    min = this?.min,
-    validateInput = this?.validateInput,
-    validateValue = this?.validateValue
-  } = {}
-) {
+/**
+ * Represents the components of specific day.
+ * @typedef DayData
+ * @property {function(): boolean} isDateTimeObject() - Used for duck-typing. Always returns true.
+ * @property {function(): number} getYear() - The year component of the date-time (integer).
+ * @property {function(): number} getMonth() - The month of the year (1-indexed) (integer).
+ * @property {function(): number} getDayOfMonth() - The numerical day of the month (integer).
+ * @property {function(): Date} getDate() - A `Date` object corresponding to the original input string. The time
+ *   components of the `Date` will all be set to 0 and the timezone is always UTC.
+ * @property {function(): number} valueOf() - The seconds since the epoch (UTC) represented by the original input
+ *   string (at the start of the UTC day).
+ */
+
+/**
+ * Parses and validates input string as a specific day (date). Can handle year first and US format, with or without
+ * delimiters, along with RFC 2822 style dates like '1 Jan 2024'.
+ * @param {string} input - The input string.
+ * @param {object} options - The validation options.
+ * @param {string} options.name - The 'name' by which to refer to the input when generating error messages for the user.
+ * @param {string|number|Date} options.max - The latest day to be considered valid.
+ * @param {string|number|Date} options.min - The earliest day to be considered valid.
+ * @param {Function} options.validateInput - A custom validation function which looks at the original input string. See
+ *   the [custom validation functions](#custom-validation-functions) section for details on input and return values.
+ * @param {Function} options.validateValue - A custom validation function which looks at the transformed value. See the
+ *   [custom validation functions](#custom-validation-functions) section for details on input and return values.
+ * @returns {DayData} The day/date data.
+ */
+const Day = function (input, options = this || {}) {
+  const { name } = options
+  let { max, min } = options
+
   const selfDescription = describeInput('Day', name)
   typeChecks(input, selfDescription)
 
@@ -34,7 +55,8 @@ const Day = function (
     throw Error(`${selfDescription} value '${input}' not recognized as either US, international, or RFC 2822 style date. Try something like '1/15/2024', '2024-1-15', or '15 Jan 2024'.`)
   }
 
-  checkValidateInput(input, { selfDescription, validateInput })
+  const validationOptions = Object.assign({ input, selfDescription }, options)
+  checkValidateInput(input, validationOptions)
 
   const ceIndicator = intlMatch?.[1] || usMatch?.[3] || ''
   const year = parseInt(ceIndicator + (intlMatch?.[2] || usMatch?.[4] || rfc2822Match?.[4]))
@@ -84,7 +106,7 @@ const Day = function (
 
   const value = createValue({ day, month, year, date })
 
-  checkValidateValue(value, { input, selfDescription, validateValue })
+  checkValidateValue(value, validationOptions)
 
   return value
 }

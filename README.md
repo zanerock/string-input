@@ -31,7 +31,7 @@ for (const line of lines) {
 }
 ```
 
-With [command-line-args](https://github.com/75lb/command-line-args#readme):
+With [command-line-args](https://github.com/75lb/command-line-args#readme) (or similar), you can make set the type options directly on the option specification:
 ```javascript
 import commandLineArgs from 'command-line-args'
 import { Day, Email, ValidatedString }
@@ -47,3 +47,28 @@ const optionSpec = [
 
 const options = commandLineArgs(optionSpec)
 ```
+
+## Custom validation functions
+
+All the type functions take `validateInput` and `validateValue` functions.
+
+These functions each take two arguments: either the original input or the processed value, respectively, and an options object containing `input` and `selfDescription` fields, plus all the original options passed into the type function or set on the context, if any. E.g.:
+```javascript
+const options = { 
+  name: 'email', 
+  noPlusEmails: true, 
+  propertyForValidationFunction: 'BAIL OUT!',
+  validateInput: (input, { name, selfDescription, propertyForValidationFunction }) => {
+    if (propertyForValidationFunction === 'BAIL OUT!') {
+      return `${selfDescription} input '${name}' is bailing out!`
+    }
+  }
+}
+// 'validateInput' will see all the original options, plus 'input' and 'selfDescription`
+Email('foo@bar.com', options)
+// or
+// options.type = Email
+// options.type('foo@bar.com')
+```
+
+The validate functions _must_ return `true` if validated. Any non-`true` result is treated as indicative of failure. If the validation function returns a string, than that is treated as an explanation of the issue and it is embedded in a string like: `${type} ${name} input '${input} ${result}.` E.g., if our validation function returns 'contains offensive words', then the error message raised would be something like, "Email personalEmail input 'asshat@foo.com' contains offensive words."

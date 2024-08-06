@@ -12,7 +12,19 @@ const failureInput = [
   ['12-34567890', {}, 'not a valid EIN'],
   ['49-0456789', {}, 'not a valid EIN'],
   ['123456789', { validateInput : (input) => input.startsWith('2') }, 'failed custom input validation'],
-  ['123456789', { validateValue : (value) => value.startsWith('2') }, 'failed custom value validation']
+  ['123456789', { validateValue : (value) => value.startsWith('2') }, 'failed custom value validation'],
+  ['12-3456789',
+    {
+      validateInput      : (input, { validationProperty }) => `secret is ${validationProperty}`,
+      validationProperty : 'abc'
+    },
+    'secret is abc'],
+  ['12-3456789',
+    {
+      validateValue      : (value, { validationProperty }) => `secret is ${validationProperty}`,
+      validationProperty : 'abc'
+    },
+    'secret is abc']
 ].map((params) => { params[1].name = 'foo'; params[2] = "EIN 'foo'.*?" + params[2]; return params })
 
 describe('EIN', () => {

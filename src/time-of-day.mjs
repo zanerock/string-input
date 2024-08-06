@@ -6,17 +6,39 @@ import { checkValidateValue } from './lib/check-validate-value'
 import { describeInput } from './lib/describe-input'
 import { typeChecks } from './lib/type-checks'
 
-const TimeOfDay = function (
-  input,
-  {
-    name = this?.name,
-    max = this?.max,
-    min = this?.min,
-    noEOD = this?.noEOD,
-    validateInput = this?.validateInput,
-    validateValue = this?.validateValue
-  } = {}
-) {
+/**
+ * Represents the time components.
+ * @typedef TimeData
+ * @property {function(): boolean} isEOD() - Whether or not the time is the special 'end of day' time.
+ * @property {function(): number} getHours() - The hours component of the date-time (integer).
+ * @property {function(): number} getMinutes() - The minutes component of the date-time (integer).
+ * @property {function(): number} getSeconds() - The seconds component of the date-time (integer).
+ * @property {function(): number} getFractionalSeconds() - The fractional seconds component of the date-time; this will
+ *   always be a float less than 1.
+ * @property {function(): number} getMilliseconds() - The fractional seconds component of the date-time expressed as
+ *   milliseconds (integer).
+ * @property {function(): number} valueOf() - Seconds (including fractional seconds) since 00:00:00.
+ */
+
+/**
+ * Parses and validates the input as a time-of-day. Because there is no date component and some timezones would be
+ * ambiguous, this type does not recognize nor accepts timezone specification.
+ * @param {string} input - The input string.
+ * @param {object} options - The validation options.
+ * @param {string} options.name - The 'name' by which to refer to the input when generating error messages for the user.
+ * @param {string} options.max - A string, parseable by this function, representing the latest valid time.
+ * @param {string} options.min - A string, parseable by this function, representing the earliest valid time.
+ * @param {boolean} options.noEOD - Disallows the special times '24:00:00', which represents the last moment of the day.
+ * @param {Function} options.validateInput - A custom validation function which looks at the original input string. See
+ *   the [custom validation functions](#custom-validation-functions) section for details on input and return values.
+ * @param {Function} options.validateValue - A custom validation function which looks at the transformed value. See the
+ *   [custom validation functions](#custom-validation-functions) section for details on input and return values.
+ * @returns {TimeData} The parsed time data.
+ */
+const TimeOfDay = function (input, options = this || {}) {
+  const { name, noEOD } = options
+  let { min, max } = options
+
   const selfDescription = describeInput('Time of day', name)
   typeChecks(input, selfDescription, name)
 
@@ -33,7 +55,8 @@ const TimeOfDay = function (
     throw new Error(`${selfDescription} indicates disallowed special 'end-of-day' time.`)
   }
 
-  checkValidateInput(input, { selfDescription, validateInput })
+  const validationOptions = Object.assign({ input, selfDescription }, options)
+  checkValidateInput(input, validationOptions)
 
   const value = getValue({ isEOD, militaryTimeMatch, timeMatch, twentyFourHourTimeMatch })
 
@@ -45,7 +68,7 @@ const TimeOfDay = function (
   }
   checkMaxMin({ input, limitToString : limitDescriptor, max, min, selfDescription, value })
 
-  checkValidateValue(value, { input, selfDescription, validateValue })
+  checkValidateValue(value, validationOptions)
 
   return value
 }

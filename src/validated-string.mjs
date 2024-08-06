@@ -3,22 +3,39 @@ import { checkValidateValue } from './lib/check-validate-value'
 import { describeInput } from './lib/describe-input'
 import { typeChecks } from './lib/type-checks'
 
-const ValidatedString = function (
-  input,
-  {
-    after = this?.after,
-    before = this?.before,
-    endsWith = this?.endsWith,
-    matchRE = this?.matchRE,
-    maxLength = this?.maxLength,
-    minLength = this?.minLength,
-    name = this?.name,
-    oneOf = this?.oneOf,
-    startsWith = this?.startsWith,
-    validateInput = this?.validateInput,
-    validateValue = this?.validateValue
-  } = {}
-) {
+/**
+ * Validates a string according to the provided options. This is useful when there's not a pre-built type like `Email`.
+ * @param {string} input - The input string.
+ * @param {object} options - The validation options.
+ * @param {string} options.name - The 'name' by which to refer to the input when generating error messages for the user.
+ * @param {string} options.after - The input must be or lexicographically sort after this string.
+ * @param {string} options.before - The input must be or lexicographically sort before this string.
+ * @param {string} options.endsWith - The input string must end with the indicated string.
+ * @param {number} options.maxLength - The longest valid input string in terms of characters.
+ * @param {string|RegExp} options.matchRE - The input string must match the provided regular expression. Specifying a
+ *   string which is an invalid regular expression will cause an exception to be thrown.
+ * @param {number} options.minLength - The shortest valid input string in terms of characters.
+ * @param {Array.<string>} options.oneOf - The input string must be exactly one of the members of this array.
+ * @param {string} options.startsWith - The input string must start with the indicated string.
+ * @param {Function} options.validateInput - A custom validation function which looks at the original input string. See
+ *   the [custom validation functions](#custom-validation-functions) section for details on input and return values.
+ * @param {Function} options.validateValue - A custom validation function which looks at the transformed value. See the
+ *   [custom validation functions](#custom-validation-functions) section for details on input and return values.
+ * @returns {string} Returns the input.
+ */
+const ValidatedString = function (input, options = this || {}) {
+  const {
+    after,
+    before,
+    endsWith,
+    maxLength,
+    minLength,
+    name,
+    oneOf,
+    startsWith
+  } = options
+  let { matchRE } = options
+
   const selfDescription = describeInput('String', name)
   typeChecks(input)
 
@@ -56,8 +73,9 @@ const ValidatedString = function (
     throw new Error(`${selfDescription} input '${input}' must be one of '${oneOf.join("', '")}'.`)
   }
 
-  checkValidateInput(input, { selfDescription, validateInput })
-  checkValidateValue(input, { input, selfDescription, validateValue })
+  const validationOptions = Object.assign({ input, selfDescription }, options)
+  checkValidateInput(input, validationOptions)
+  checkValidateValue(input, validationOptions)
 
   return input
 }

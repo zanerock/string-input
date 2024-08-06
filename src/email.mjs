@@ -1,155 +1,127 @@
-// import { regex } from 'regex'
-// import { validate } from 'email-validator'
+import { getLatestTLDs, validateEmail } from 'true-email-validator'
 
-import { checkValidateInput } from './lib/check-validate-input'
-import { checkValidateValue } from './lib/check-validate-value'
 import { describeInput } from './lib/describe-input'
 import { typeChecks } from './lib/type-checks'
-import { validTLDs } from './lib/valid-tlds'
 
-let fetchWarning = null
+/**
+ * Email address and components.
+ * @typedef EmailData
+ * @property {string} address - The normalized email address. The domain portion, if any, will always be in lowercase (
+ *   the `domain` property will preserve the original case).
+ * @property {string} username - The username or local part of the email address.
+ * @property {string|undefined} domain - The domain value, if present. Exactly one of `domain` and `domainLiteral` will
+ *   always be defined for a syntactically valid email address. The original case of the domain is preserved.
+ * @property {string|undefined} domainLiteral - The domain literal value, if present. Exactly one of `domain` and
+ *   `domainLiteral` will always be defined for a syntactically valid email address.
+ * @property {string|undefined} commentLocalPartPrefix - The embedded comment, if any, immediately before the address
+ *   username (local part).
+ * @property {string|undefined} commentLocalPartSuffix - The embedded comment, if any, immediately following the
+ *   address username (local part).
+ * @property {string|undefined} commentDomainPrefix - The embedded comment, if any, immediately before the domain or
+ *   domain literal.
+ * @property {string|undefined} commentDomainSuffix - The embedded comment, if any, immediately after the domain or
+ *   domain literal.
+ */
 
-// eslint-disable-next-line  no-control-regex, no-useless-escape
-const emailRE = /^(((((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(\((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(?:(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f])|[\x21-\x27\x2a-\x5b\x5d-\x7e])|(\\([\x01-\x09\x0b\x0c\x0e-\x7f]))))*((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?\)))*(?:(?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(\((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(?:(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f])|[\x21-\x27\x2a-\x5b\x5d-\x7e])|(\\([\x01-\x09\x0b\x0c\x0e-\x7f]))))*((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?\)))|((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)))?((([A-Za-z])|([0-9])|[\!\#\$\%\&'\*\+\/\=\?\^_\`\{\|\}\~\-])+(?:\.(([A-Za-z])|([0-9])|[\!\#\$\%\&'\*\+\/\=\?\^_\`\{\|\}\~\-])+)*)((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(\((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(?:(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f])|[\x21-\x27\x2a-\x5b\x5d-\x7e])|(\\([\x01-\x09\x0b\x0c\x0e-\x7f]))))*((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?\)))*(?:(?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(\((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(?:(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f])|[\x21-\x27\x2a-\x5b\x5d-\x7e])|(\\([\x01-\x09\x0b\x0c\x0e-\x7f]))))*((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?\)))|((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)))?)|(((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(\((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(?:(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f])|[\x21-\x27\x2a-\x5b\x5d-\x7e])|(\\([\x01-\x09\x0b\x0c\x0e-\x7f]))))*((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?\)))*(?:(?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(\((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(?:(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f])|[\x21-\x27\x2a-\x5b\x5d-\x7e])|(\\([\x01-\x09\x0b\x0c\x0e-\x7f]))))*((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?\)))|((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)))?(")(?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?((([\x01-\x08\x0b\x0c\x0e-\x1f\x7f])|[\x21\x23-\x5b\x5d-\x7e])|(\\([\x01-\x09\x0b\x0c\x0e-\x7f]))))*((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(")((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(\((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(?:(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f])|[\x21-\x27\x2a-\x5b\x5d-\x7e])|(\\([\x01-\x09\x0b\x0c\x0e-\x7f]))))*((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?\)))*(?:(?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(\((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(?:(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f])|[\x21-\x27\x2a-\x5b\x5d-\x7e])|(\\([\x01-\x09\x0b\x0c\x0e-\x7f]))))*((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?\)))|((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)))?))@((((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(\((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(?:(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f])|[\x21-\x27\x2a-\x5b\x5d-\x7e])|(\\([\x01-\x09\x0b\x0c\x0e-\x7f]))))*((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?\)))*(?:(?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(\((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(?:(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f])|[\x21-\x27\x2a-\x5b\x5d-\x7e])|(\\([\x01-\x09\x0b\x0c\x0e-\x7f]))))*((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?\)))|((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)))?((([A-Za-z])|([0-9])|[\!\#\$\%\&'\*\+\/\=\?\^_\`\{\|\}\~\-])+(?:\.(([A-Za-z])|([0-9])|[\!\#\$\%\&'\*\+\/\=\?\^_\`\{\|\}\~\-])+)*)((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(\((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(?:(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f])|[\x21-\x27\x2a-\x5b\x5d-\x7e])|(\\([\x01-\x09\x0b\x0c\x0e-\x7f]))))*((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?\)))*(?:(?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(\((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(?:(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f])|[\x21-\x27\x2a-\x5b\x5d-\x7e])|(\\([\x01-\x09\x0b\x0c\x0e-\x7f]))))*((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?\)))|((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)))?)|(((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(\((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(?:(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f])|[\x21-\x27\x2a-\x5b\x5d-\x7e])|(\\([\x01-\x09\x0b\x0c\x0e-\x7f]))))*((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?\)))*(?:(?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(\((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(?:(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f])|[\x21-\x27\x2a-\x5b\x5d-\x7e])|(\\([\x01-\x09\x0b\x0c\x0e-\x7f]))))*((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?\)))|((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)))?\[(?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?((([\x01-\x08\x0b\x0c\x0e-\x1f\x7f])|[\x21-\x5a\x5e-\x7e])|(\\([\x01-\x09\x0b\x0c\x0e-\x7f]))))*((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?\]((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(\((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(?:(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f])|[\x21-\x27\x2a-\x5b\x5d-\x7e])|(\\([\x01-\x09\x0b\x0c\x0e-\x7f]))))*((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?\)))*(?:(?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(\((?:((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(?:(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f])|[\x21-\x27\x2a-\x5b\x5d-\x7e])|(\\([\x01-\x09\x0b\x0c\x0e-\x7f]))))*((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?\)))|((?:([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)))?)))$/v
-/*
-let emailRE
-(async () => {
-  const { regex } = await import('regex')
+/**
+ * Parses and validates an input string as a valid email address according to RFC 5322 (email messaging), RFC 6531/6532
+ * (internationalized email), and RFC 5890 (internationalized domain names). Validation happens in two general steps.
+ * First, the input is parsed according to the relevant RFC specifications. If this is successful, then the result will
+ * always contain a `username`,`address`, and either `domain` or `domainLiteral` fields. If these are present, you know
+ * that the email was successfully parsed. The second stage validates the parsed email components against the provided
+ * options or option defaults. Therefore, you can have a situation where an email address is valid according to the
+ * specs and can be parsed without an issue, but is still _invalid_ according to the effective options (or defaults).
+ *
+ * By default, the validation restricts possible features in the email address—such as comments and domain
+ * literals—which are not normally wanted in basic email address. In particular, the default options:
+ * - disallow embedded comments,
+ * - disallow domain literal (IP addressing),
+ * - disallow the 'localhost' domain,
+ * - restricts possible TLDs to known good TLDs,
+ * - restricts domain names to valid subdomain and TLDs based on DNS and ICANN rules beyond the email address
+ * specification, and
+ * - performs extra validation for known provider domains google.com and hotmail.com.
+ *
+ * Options can be explicitly defined to allow for a more liberal or restrictive validation.
+ *
+ * This type uses [true-email-validator](https://github.com/liquid-labs/true-email-validator/) under the hood.
+ * @param {string} input - The input string.
+ * @param {object} options - The validation options.
+ * @param {string} options.name - The 'name' by which to refer to the input when generating error messages for the user.
+ * @param {boolean} options.allowComments - If true, allows embedded comments in the address like '(comment)
+ *   john@foo.com', which are disallowed by default. Note, the comments, if present, will be extracted regardless of
+ *   this setting, the result `valid` field will just be set false and an issue will be reported.
+ * @param {boolean}options.allowAnyDomain - If true, then overrides all default restrictions and format checks of the
+ *   domain value and allows any syntactically valid domain value except a localhost name or address (unless
+ *   `allowLocalHost` is also set true). Note that impossible sub-domain labels (e.g., a label more than 63 characters
+ *   long or a single digit) or TLDs (e.g. '123') will still trigger an invalid result. Otherwise, the domain value is
+ *   verified as recognizable as a domain name (as opposed to an IP address, for instance).
+ * @param {boolean} options.allowAnyDomainLiteral - If true, then overrides default restrictions and format checks of
+ *   domain literal values and allows any syntactically valid domain literal value that is not a localhost address (
+ *   unless `allowLocalhost` is also true). In general, domain literal values point to IPV4/6 addresses and the
+ *   validation will (when `allowIP4` and/or`allowIPV6` are true), allow valid IP address values but would reject other
+ *   domain literal values, unless this value is set true. Note, if this value is true then allowIPV4` and `allowIPV6`
+ *   are essentially ignored.
+ * @param {boolean} options.allowIPV4 - Allows IPV4 domain literal values. Note that any loopback address will still
+ *   cause a validation error unless `allowLocalHost` is also set true. See `allowAnyDomainLiteral`, `allowIPV6`, and
+ *  `allowLocahost`.`
+ * @param {boolean} options.allowIPV6 - Allows IPV6 domain literal values. Note that the localhost address will still
+ *   cause a validation error unless `allowLocaHost` is also set true. See `allowAnyDomainLiteral`, `allowIPV4`, and
+ *  `allowLocahost`.`
+ * @param {boolean} options.allowLocalhost - Allows `localhost` domain value or (when `allowIPV6` and/or `allowIPV4`
+ *   also set true) loopback IP addresses.
+ * @param {boolean} options.allowedTLDs - By default, the TLD portion of a domain name will be validated against known
+ *   good TLDs. To limit this list or use an updated list, set this value to an array of acceptable TLDs or a map with
+ *   valid TLD keys (the value is not used). You can use the `getLatestTLDs`, also exported by this package, to get an
+ *   object defining the most current TLDs as registered with ICANN. See `arbitraryTLDs`.
+ * @param {boolean} options.allowQuotedLocalPart - Overrides default restriction and allows quoted username/local parts.
+ * @param {boolean} options.arbitraryTLDs - Skips the 'known TLD' check and allows any validly formatted TLD name. This
+ *   is still restricted by the TLD name restrictions which are tighter than standard domain labels.
+ * @param {boolean} options.excludeChars - Either a string or array of excluded characters. In the array form, it will
+ *   match the whole string, so you can also use this to exclude specific character sequences.
+ * @param {boolean} options.excludeDomains - An array of domains to exclude. Excluding a domain also excludes all
+ *   subdomains so eclxuding 'foo.com' would exclude 'john@foo.com' and 'john@bar.foo.com'. Initial periods are ignored
+ *   so `excludeDomains: ['com']', and `excludeDomains: ['.com']` are equivalent.
+ * @param {boolean} options.noDomainSpecificValidation - Setting this to true will skip domain specific validations. By
+ *   default, the validation includes domain specific checks for 'google.com' and 'hotmail.com' domains. These domains
+ *   are known to have more restrictive policies regarding what is and is not a valid email address.
+ * @param {boolean} options.noLengthCheck - If true, then skips username (local part) and total email address length
+ *   restrictions. Note that domain name label lengths are still enforced.
+ * @param {boolean} options.noPlusEmails - If true, then '+' is not allowed in the username/local part. This is
+ *   equivalent to setting `excludeChars = '+'.`
+ * @param {boolean} options.noTLDOnly - If true, then disallows TLD only domains in an address like 'john@com'.
+ * @param {boolean} options.noNonASCIILocalPart - If true, then disallows non-ASCII/international characters in the
+ *   username/local part of the address.
+ * @param {Function} options.validateInput - A custom validation function which looks at the original input string. See
+ *   the [custom validation functions](#custom-validation-functions) section for details on input and return values.
+ * @param {Function} options.validateValue - A custom validation function which looks at the transformed value. See the
+ *   [custom validation functions](#custom-validation-functions) section for details on input and return values.
+ * @returns {EmailData} Email data object.
+ */
+const Email = function (input, options = this || {}) {
+  const { name } = options
 
-emailRE = regex`
-^\g<addr_spec>$
-
-(?(DEFINE)
-   # (?<address>         \g<mailbox> | \g<group>)
-   # (?<mailbox>         \g<name_addr> | \g<addr_spec>)
-   # (?<name_addr>       \g<display_name>? \g<angle_addr>)
-   # (?<angle_addr>      \g<CFWS>? < \g<addr_spec> > \g<CFWS>?)
-   # (?<group>           \g<display_name> : (?:\g<mailbox_list> | \g<CFWS>)? ;
-   #                                       \g<CFWS>?)
-   # (?<display_name>    \g<phrase>)
-   # (?<mailbox_list>    \g<mailbox> (?: , \g<mailbox>)*)
-
-   (?<addr_spec>       \g<local_part> @ \g<domain>)
-   (?<local_part>      \g<dot_atom> | \g<quoted_string>)
-   (?<domain>          \g<dot_atom> | \g<domain_literal>)
-   (?<domain_literal>  \g<CFWS>? \[ (?: \g<FWS>? \g<dcontent>)* \g<FWS>?
-                                 \] \g<CFWS>?)
-   (?<dcontent>        \g<dtext> | \g<quoted_pair>)
-   (?<dtext>           \g<NO_WS_CTL> | [\x21-\x5a\x5e-\x7e])
-
-   (?<atext>           \g<ALPHA> | \g<DIGIT> | [!#$%&'*+\/=?^_\`\{\|\}~\-])
-   (?<atom>            \g<CFWS>? \g<atext>+ \g<CFWS>?)
-   (?<dot_atom>        \g<CFWS>? \g<dot_atom_text> \g<CFWS>?)
-   (?<dot_atom_text>   \g<atext>+ (?: \. \g<atext>+)*)
-
-   (?<text>            [\x01-\x09\x0b\x0c\x0e-\x7f])
-   (?<quoted_pair>     \\ \g<text>)
-
-   (?<qtext>           \g<NO_WS_CTL> | [\x21\x23-\x5b\x5d-\x7e])
-   (?<qcontent>        \g<qtext> | \g<quoted_pair>)
-   (?<quoted_string>   \g<CFWS>? \g<DQUOTE> (?:\g<FWS>? \g<qcontent>)*
-                        \g<FWS>? \g<DQUOTE> \g<CFWS>?)
-
-   (?<word>            \g<atom> | \g<quoted_string>)
-   (?<phrase>          \g<word>+)
-
-   # Folding white space
-   (?<FWS>             (?: \g<WSP>* \g<CRLF>)? \g<WSP>+)
-   (?<ctext>           \g<NO_WS_CTL> | [\x21-\x27\x2a-\x5b\x5d-\x7e])
-   (?<ccontent>        \g<ctext> | \g<quoted_pair> | \g<comment>)
-   # (?<comment>         \( (?: \g<FWS>? \g<ccontent>)* \g<FWS>? \) )
-   (?<comment>         \( (?: \g<FWS>? (?: \g<ctext> | \g<quoted_pair> ))* \g<FWS>? \) )
-   (?<CFWS>            (?: \g<FWS>? \g<comment>)*
-                       (?: (?:\g<FWS>? \g<comment>) | \g<FWS>))
-
-   # No whitespace control
-   (?<NO_WS_CTL>       [\x01-\x08\x0b\x0c\x0e-\x1f\x7f])
-
-   (?<ALPHA>           [A-Za-z])
-   (?<DIGIT>           [0-9])
-   (?<CRLF>            \x0d \x0a)
-   (?<DQUOTE>          ")
-   (?<WSP>             [\x20\x09])
- )
-`
-
-console.log(emailRE.toString())
-
-})()
-*/
-const Email = function (
-  input,
-  {
-    name = this?.name,
-    noPlusEmails = this?.noPlusEmails,
-    restrictToKnownTLDs = this?.restrictToKnownTLDs,
-    validateInput = this?.validateInput,
-    validateValue = this?.validateValue
-  } = {}
-) {
   const selfDescription = describeInput('Email', name)
-  typeChecks(input)
 
-  const isValid = emailRE.test(input)
+  typeChecks(input, selfDescription)
+
+  if (options.validateValue !== undefined) {
+    options.validateResult = options.validateValue
+  }
+
+  const result = validateEmail(input, options)
+  const { issues, isValid } = result
+  delete result.issues
+  delete result.isValid
+
   if (isValid === false) {
-    throw new Error(`${selfDescription} input '${input}' does not appear to be a valid email address.`)
-  }
-
-  // we want to extract the username and domain portions, but there can be multiple '@', if quoted
-  const bits = input.split('@')
-  const domain = bits.pop()
-  const username = bits.join('@')
-  if (noPlusEmails === true) {
-    if (username.includes('+')) {
-      throw new Error(`${selfDescription} input '${input}' includes disallowed '+' in username.`)
+    if (issues.length === 0) { // shouldn't happen, but just in case
+      issues.push('has unspecified issues')
     }
-  }
-  if (restrictToKnownTLDs) {
-    const domains = domain.split('.')
-    const tld = domains[domains.length - 1]
-
-    const testTLDs = restrictToKnownTLDs === true ? validTLDs : restrictToKnownTLDs
-    if (!(tld.toUpperCase() in testTLDs)) {
-      let msg = `${selfDescription} input '${input}' includes unknown TLD '${tld}'.`
-      if (restrictToKnownTLDs === true && fetchWarning !== null) {
-        msg += ' ' + fetchWarning
-      }
-      throw new Error(msg)
-    }
+    throw new Error(`${selfDescription} input '${input}' ${issues.join(', ')}.`)
   }
 
-  checkValidateInput(input, { selfDescription, validateInput })
-  const value = username + '@' + domain.toLowerCase()
-  checkValidateValue(value, { input, selfDescription, validateValue })
-
-  return value
+  return result
 }
 
-Email.updateLatestTLDs = async (dieOnError) => {
-  const tldsListURL = 'https://data.iana.org/TLD/tlds-alpha-by-domain.txt'
-
-  try {
-    const response = await fetch(tldsListURL)
-    if (response.ok === false) {
-      throw new Error(`status: ${response.status}`)
-    }
-    const tldList = await response.text()
-    for (const prop in validTLDs) {
-      delete validTLDs[prop]
-    }
-    for (const tld of tldList.split('\n')) {
-      if (tld.length > 0 && tld.startsWith('#') !== true) {
-        validTLDs[tld.trim()] = true
-      }
-    }
-
-    return validTLDs
-  } catch (e) {
-    if (dieOnError === true) {
-      throw e
-    } // else
-    fetchWarning = `Was unable to fetch latest TLDs (${e.message}).`
-  }
-}
-
-export { Email }
+export { Email, getLatestTLDs }

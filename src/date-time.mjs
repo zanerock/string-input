@@ -11,17 +11,53 @@ import { processISO8601DateTime } from './lib/date-time/process-iso-8601-date-ti
 import { processRFC2822DateTime } from './lib/date-time/process-rfc-2822-date-time'
 import { typeChecks } from './lib/type-checks'
 
-const DateTime = function (
-  input,
-  {
-    name = this?.name,
-    localTimezone = this?.localTimezone,
-    max = this?.max,
-    min = this?.min,
-    noEOD = this?.noEOD,
-    validateInput = this?.validateInput,
-    validateValue = this?.validateValue
-  } = {}) {
+/**
+ * Date-time components.
+ * @typedef {object} DateTimeData
+ * @property {function(): boolean} isDateTimeObject() - Used for duck-typing. Always returns true.
+ * @property {function(): number} getYear() - The year component of the date-time (integer).
+ * @property {function(): number} getMonth() - The month of the year (1-indexed; integer).
+ * @property {function(): number} getDayOfMonth() - The numerical day of the month (integer).
+ * @property {function(): boolean} isEOD() - Whether or not the time is the special 'end of day' time.
+ * @property {function(): number} getHours() - The hours component of the date-time (integer).
+ * @property {function(): number} getMinutes() - The minutes component of the date-time (integer).
+ * @property {function(): number} getSeconds() - The seconds component of the date-time (integer).
+ * @property {function(): number} getFractionalSeconds() - The fractional seconds component of the date-time.
+ * @property {function(): number} getMilliseconds() - The fractional seconds component of the date-time expressed as
+ *   milliseconds (integer).
+ * @property {function(): number} getTimezoneOffset() - The timezone offset of the original input string in minutes.
+ *   May be positive, or negative (integer).
+ * @property {function(): Date} getDate() - A `Date` object corresponding to the original input string.
+ * @property {function(): number} valueOf() - The milliseconds since the epoch (UTC) represented by the original
+ *   input string (integer).
+ */
+
+/**
+ * Parses and validates a wide range of date-time formats. Accepts RFC 8601 style date times (e.g.:
+ * `2024-01-01T12:30:00Z`) as well RFC-2822 style dates (e.g., '1 Jan 2024'), year-first, and US style dates combined
+ * with standard (AP/PM), twenty-four hour, and military time designations in either '[date] [time]' or '[time] [date]'
+ * order.
+ * @param {string} input - The input string.
+ * @param {object} options - The validation options.
+ * @param {string} options.name - The 'name' by which to refer to the input when generating error messages for the user.
+ * @param {string} options.localTimezone - For otherwise valid date time input with no time zone component, then the
+ *   `localTimeZone` must be specified as an option. This value is only used if the timezone is not specified in the
+ *   input string and any timezone specified in the input string will override this value.
+ * @param {string|number|Date} options.min - The earliest valid time, inclusive. This may be specified as any string
+ *   parseable by this function, milliseconds since the epoch (UTC), or a Date object.
+ * @param {string|number|Date} options.max - The latest valid time, inclusive. This may be specified as any string
+ *   parseable by this function, milliseconds since the epoch (UTC), or a Date object.
+ * @param {boolean} options.noEOD - Disallows the special times '24:00:00', which represents the last moment of the day.
+ * @param {Function} options.validateInput - A custom validation function which looks at the original input string. See
+ *   the [custom validation functions](#custom-validation-functions) section for details on input and return values.
+ * @param {Function} options.validateValue - A custom validation function which looks at the transformed value. See the
+ *   [custom validation functions](#custom-validation-functions) section for details on input and return values.
+ * @returns {DateTimeData} The date-time data.
+ */
+const DateTime = function (input, options = this || {}) {
+  const { name, localTimezone, noEOD } = options
+  let { min, max } = options
+
   const selfDescription = describeInput('Date-time', name)
   typeChecks(input, selfDescription)
 
@@ -45,7 +81,8 @@ const DateTime = function (
     throw new Error(`${selfDescription} does not allow special EOD time '24:00'.`)
   }
 
-  checkValidateInput(input, { selfDescription, validateInput })
+  const validationOptions = Object.assign({ input, selfDescription }, options)
+  checkValidateInput(input, validationOptions)
 
   // we compare DateTime objects so we can preserve the timezone in the `limitToString()` function. The problem is that
   // when things are converted to `Date`, the original TZ is lost and `Date.getTimezoneOffset()` always shows the local
@@ -72,7 +109,7 @@ const DateTime = function (
   }
   checkMaxMin({ input, limitToString, max, min, selfDescription, value })
 
-  checkValidateValue(value, { input, selfDescription, validateValue })
+  checkValidateValue(value, validationOptions)
 
   return value
 }

@@ -34,7 +34,8 @@
   "dependencies": {
     "luhn": "^2.4.1",
     "regex": "^3.0.0",
-    "regex-repo": "^4.0.1"
+    "regex-repo": "^4.0.1",
+    "true-email-validator": "^1.0.0-alpha.5"
   },
   "_sdlc": {
     "linting": {

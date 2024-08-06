@@ -9,16 +9,29 @@ const seps = '[ -]'
 const formattedNumberRE = new RegExp(`^(?:\\d${seps}?)+\\d$`)
 const rawNumberRE = new RegExp(seps, 'g')
 
-const CardNumber = function (
-  input,
-  {
-    name = this?.name,
-    iins = this?.iins,
-    lengths = this?.lengths || [12, 13, 14, 15, 16, 17, 18, 19],
-    validateInput = this?.validateInput,
-    validateValue = this?.validateValue
-  } = {}
-) {
+/**
+ * Validates an input string as a syntactically valid card number.
+ * @param {string} input - The input string.
+ * @param {object} options - The validation options.
+ * @param {string} options.name - The 'name' by which to refer to the input when generating error messages for the user.
+ * @param {string[]} options.iins - A list of acceptable Industry Identifier Numbers, or initial card numbers. E.g.,
+ *   iins : ['123']` would only accept cards with an account number starting with '123'. If left undefined, then all
+ *   otherwise valid card numbers are treated as valid.
+ * @param {number[]} options.length - An array of integers defining acceptable card lengths. The default value is any
+ *   length between 12 and 19, inclusive.`
+ * @param {Function} options.validateInput - A custom validation function which looks at the original input string. See
+ *   the [custom validation functions](#custom-validation-functions) section for details on input and return values.
+ * @param {Function} options.validateValue - A custom validation function which looks at the transformed value. See the
+ *   [custom validation functions](#custom-validation-functions) section for details on input and return values.
+ * @returns {string} A number-string with no delimiters. Note, there are valid card numbers beginning with 0.
+ */
+const CardNumber = function (input, options = this || {}) {
+  const {
+    name,
+    iins,
+    lengths = [12, 13, 14, 15, 16, 17, 18, 19]
+  } = options
+
   const selfDescription = describeInput('Card number', name)
   typeChecks(input, selfDescription)
 
@@ -58,13 +71,14 @@ const CardNumber = function (
     throw new Error(`${selfDescription} input '${input}' is an invalid IIN or partial IIN. Must match one of ${iins.join(', ')}.`)
   }
 
-  checkValidateInput(input, { selfDescription, validateInput })
+  const validationOptions = Object.assign({ input, selfDescription }, options)
+  checkValidateInput(input, validationOptions)
 
   if (luhn.validate(numberString) !== true) {
     throw new Error(`${selfDescription} failed the check-digit validation. This most likely means there's a typo somewhere in the number.`)
   }
 
-  checkValidateValue(numberString, { input, selfDescription, validateValue })
+  checkValidateValue(numberString, validationOptions)
 
   return numberString
 }
