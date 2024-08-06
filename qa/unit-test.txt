@@ -1,0 +1,56 @@
+Test git rev: ea633d5aeca99aab37f49c8fe70877fd56d8315a
+(node:29112) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+PASS test/email.test.js
+PASS test/date-time.test.js
+PASS test/day.test.js
+PASS test/validate-string.test.js
+PASS test/time-of-day.test.js
+PASS test/card-number.test.js
+PASS test/integer.test.js
+PASS lib/date-time/test/process-idiomatic-date-time.test.js
+PASS test/numeric.test.js
+PASS test/ein.test.js
+PASS test/ssn.test.js
+PASS lib/date-time/test/process-iso-8601-date-time.test.js
+PASS lib/date-time/test/get-timezone-offset.test.js
+PASS lib/date-time/test/process-rfc-2822-date-time.test.js
+PASS lib/date-time/test/convert-month-name.test.js
+PASS lib/date-time/test/convert-timezone-offset-to-string.test.js
+----------------------------------------|---------|----------|---------|---------|-------------------
+File                                    | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+----------------------------------------|---------|----------|---------|---------|-------------------
+All files                               |   99.84 |    97.47 |     100 |   99.81 |                   
+ src                                    |   99.76 |     97.8 |     100 |   99.72 |                   
+  card-number.mjs                       |     100 |       96 |     100 |     100 | 32                
+  date-time.mjs                         |     100 |      100 |     100 |     100 |                   
+  day.mjs                               |     100 |    96.84 |     100 |     100 | 62,67-69          
+  ein.mjs                               |     100 |      100 |     100 |     100 |                   
+  email.mjs                             |      95 |    88.88 |     100 |   94.44 | 122               
+  integer.mjs                           |     100 |      100 |     100 |     100 |                   
+  numeric.mjs                           |     100 |      100 |     100 |     100 |                   
+  ssn.mjs                               |     100 |      100 |     100 |     100 |                   
+  time-of-day.mjs                       |     100 |     97.4 |     100 |     100 | 99-101            
+  validated-string.mjs                  |     100 |      100 |     100 |     100 |                   
+ src/lib                                |     100 |     92.3 |     100 |     100 |                   
+  check-max-min.mjs                     |     100 |      100 |     100 |     100 |                   
+  check-validate-input.mjs              |     100 |       75 |     100 |     100 | 3                 
+  check-validate-value.mjs              |     100 |       75 |     100 |     100 | 3                 
+  describe-input.mjs                    |     100 |      100 |     100 |     100 |                   
+  type-checks.mjs                       |     100 |      100 |     100 |     100 |                   
+  validate-helper.mjs                   |     100 |      100 |     100 |     100 |                   
+ src/lib/date-time                      |     100 |    97.61 |     100 |     100 |                   
+  convert-month-name.mjs                |     100 |      100 |     100 |     100 |                   
+  convert-timezone-offset-to-string.mjs |     100 |      100 |     100 |     100 |                   
+  get-timezone-offset.mjs               |     100 |      100 |     100 |     100 |                   
+  make-date-time-string.mjs             |     100 |      100 |     100 |     100 |                   
+  process-idiomatic-date-time.mjs       |     100 |    96.75 |     100 |     100 | 51,57-59,69,76    
+  process-iso-8601-date-time.mjs        |     100 |      100 |     100 |     100 |                   
+  process-rfc-2822-date-time.mjs        |     100 |      100 |     100 |     100 |                   
+----------------------------------------|---------|----------|---------|---------|-------------------
+
+Test Suites: 16 passed, 16 total
+Tests:       435 passed, 435 total
+Snapshots:   0 total
+Time:        0.626 s, estimated 1 s
+Ran all test suites.
