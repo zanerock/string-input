@@ -5,7 +5,7 @@ const validInput = [
   ['foo+bar@baz.com', undefined, 'foo+bar@baz.com'],
   ['Foo@BAR.COM', undefined, 'Foo@bar.com'],
   ['"foo\\@bar"@baz.com', { allowQuotedLocalPart : true }, '"foo\\@bar"@baz.com'],
-  ['(comment)foo@bar.com', { allowComments: true }, 'foo@bar.com'],
+  ['(comment)foo@bar.com', { allowComments : true }, 'foo@bar.com'],
   ['foo@(comment)bar.com', { allowComments : true }, 'foo@bar.com'],
   ['foo@bar.com', { noPlusEmails : true }, 'foo@bar.com'],
   ['foo@bar.com', { restrictToKnownTLDs : true }, 'foo@bar.com'],
@@ -26,7 +26,22 @@ const failureInput = [
   ['foo+bar@baz.com', { noPlusEmails : true }, "contains excluded character '\\+' in username"],
   ['foo@bar.notavalidtld', { restrictToKnownTLDs : true }, "contains unknown TLD 'notavalidtld'"],
   ['foo@baz.com', { validateInput : (input) => input.startsWith('2') }, 'failed custom input validation'],
-  ['foo@baz.com', { validateValue : (value) => value.address.startsWith('2') }, 'failed custom result validation']
+  ['foo@baz.com', { validateValue : (value) => value.address.startsWith('2') }, 'failed custom result validation'],
+  ['foo@baz.com', { validateInput : () => undefined }, 'failed custom input validation'],
+  ['foo@baz.com', { validateValue : () => undefined }, 'failed custom result validation'],
+  ['foo@baz.com',
+    {
+      validateInput      : (input, { validationProperty }) => `secret is ${validationProperty}`,
+      validationProperty : 'abc'
+    },
+    'secret is abc'],
+  ['foo@baz.com',
+    {
+      validateValue      : (value, { validationProperty }) => `secret is ${validationProperty}`,
+      validationProperty : 'abc'
+    },
+    'secret is abc'],
+  ['foo@baz.com', { validateValue : () => undefined }, 'failed custom result validation']
 ].map((params) => { params[1].name = 'foo'; params[2] = "Email 'foo'.*?" + params[2]; return params })
 
 describe('Email', () => {

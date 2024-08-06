@@ -1,11 +1,11 @@
-const checkValidateValue = (value, { input, selfDescription, validateValue } = {}) => {
-  if (validateValue === undefined) return
+import { validateHelper } from './validate-helper'
 
-  const result = validateValue(value, { input, selfDescription })
-  // if 'validateValue' doesn't throw
-  if (result === false) {
-    throw new Error(`${selfDescription} input '${input}' failed custom value validation.`)
-  }
+const checkValidateValue = (value, options = {}) => {
+  validateHelper({
+    type           : 'value',
+    validationFunc : options.validateValue,
+    validationArgs : [value, options]
+  })
 }
 
 export { checkValidateValue }
