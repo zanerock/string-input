@@ -43,7 +43,7 @@ import { typeChecks } from './lib/type-checks'
  * - performs extra validation for known provider domains google.com and hotmail.com.
  *
  * Options can be explicitly defined to allow for a more liberal or restrictive validation.
- * 
+ *
  * This type uses [true-email-validator](https://github.com/liquid-labs/true-email-validator/) under the hood.
  * @param {string} input - The input string.
  * @param {object} options - The validation options.
