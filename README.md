@@ -221,7 +221,7 @@ This type uses [true-email-validator](https://github.com/liquid-labs/true-email-
 | options.allowIPV4 | `boolean` | Allows IPV4 domain literal values. Note that any loopback address will still   cause a validation error unless `allowLocalHost` is also set true. See `allowAnyDomainLiteral`, `allowIPV6`, and  `allowLocahost`.` |
 | options.allowIPV6 | `boolean` | Allows IPV6 domain literal values. Note that the localhost address will still   cause a validation error unless `allowLocaHost` is also set true. See `allowAnyDomainLiteral`, `allowIPV4`, and  `allowLocahost`.` |
 | options.allowLocalhost | `boolean` | Allows `localhost` domain value or (when `allowIPV6` and/or `allowIPV4`   also set true) loopback IP addresses. |
-| options.allowedTLDs | `object.<string, true>` | By default, the TLD portion of a domain name will be validated    against known good TLDs. To limit this list or use an updated list, set this value to an array of acceptable TLDs    or a map with valid TLD keys (the value is not used). You can use the `getLatestTLDs`, also exported by this    package, to get an object defining the most current TLDs as registered with ICANN. See `arbitraryTLDs`. |
+| options.allowedTLDs | `object.<string, true>` | By default, the TLD portion of a domain name will be validated   against known good TLDs. To limit this list or use an updated list, set this value to an array of acceptable TLDs   or a map with valid TLD keys (the value is not used). You can use the `getLatestTLDs`, also exported by this   package, to get an object defining the most current TLDs as registered with ICANN. See `arbitraryTLDs`. |
 | options.allowQuotedLocalPart | `boolean` | Overrides default restriction and allows quoted username/local parts. |
 | options.arbitraryTLDs | `boolean` | Skips the 'known TLD' check and allows any validly formatted TLD name. This   is still restricted by the TLD name restrictions which are tighter than standard domain labels. |
 | options.excludeChars | `boolean` | Either a string or array of excluded characters. In the array form, it will   match the whole string, so you can also use this to exclude specific character sequences. |
@@ -237,23 +237,23 @@ This type uses [true-email-validator](https://github.com/liquid-labs/true-email-
 **Returns**: [`EmailData`](#EmailData) - Email data object.
 
 
-[**Source code**](./src/email.mjs#L101)
+[**Source code**](./src/email.mjs#L104)
 
 <a id="getLatestTLDs"></a>
 ### `getLatestTLDs()` ⇒ `Promise.<object>`
 
 Dynamically retrieves the latest list of valid TLDs from the Internet Assigned Numbers Authority (IANA).
 International domains are decoded and both the decoded (international domain) and encoded ('xn--`) domain will be
-present in the results object as both represent valid domains from a user's point of view. The resolved result can 
+present in the results object as both represent valid domains from a user's point of view. The resolved result can
 be passed to the `Email` ``
 
-**Returns**: `Promise.<object>` - A Promise resolving to an object whose keys are valid domains; the value of each entry 
-  is `true`. ASCII characters are always lowercased, but the international domains are not transformed after 
+**Returns**: `Promise.<object>` - A Promise resolving to an object whose keys are valid domains; the value of each entry
+  is `true`. ASCII characters are always lowercased, but the international domains are not transformed after
   decoding and may contain uppercase non-ASCII unicode characters per [RFC 4343](https://www.rfc-editor.org/rfc/
   rfc4343).
 
 
-[**Source code**](./src/email.mjs#L140)
+[**Source code**](./src/email.mjs#L143)
 
 <a id="Integer"></a>
 ### `Integer(input, options)` ⇒ `number`
