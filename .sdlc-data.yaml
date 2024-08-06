@@ -73,3 +73,14 @@ projects:
             100%](./.readme-assets/coverage.svg)](https://github.com/liquid-labs/string-input/pulls?q=is%3Apr+is%3Aclosed)
           path: /Users/zane/playground/string-input/.readme-assets/coverage.svg
           purpose: Test coverage badge for README.md.
+    github-workflow:
+      dependencies: []
+      artifacts:
+        - builder: '@liquid-labs/sdlc-projects-badges-github-workflows'
+          version: 1.0.0-alpha.2
+          priority: '1'
+          content: >-
+            [![Unit
+            tests](https://github.com/liquid-labs/string-input/actions/workflows/unit-tests-node.yaml/badge.svg)](https://github.com/liquid-labs/string-input/actions/workflows/unit-tests-node.yaml)
+          purpose: Display status of 'Unit tests' GitHub Workflow.
+          config: {}
