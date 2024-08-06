@@ -49,6 +49,8 @@ const optionSpec = [
 const options = commandLineArgs(optionSpec)
 ```
 
+See notes on [invoking with context](#invoking-with-context)
+
 ## Custom validation functions
 
 All the type functions take `validateInput` and `validateValue` functions.
@@ -73,6 +75,16 @@ Email('foo@bar.com', options)
 ```
 
 The validate functions _must_ return `true` if validated. Any non-`true` result is treated as indicative of failure. If the validation function returns a string, than that is treated as an explanation of the issue and it is embedded in a string like: `${type} ${name} input '${input} ${result}.` E.g., if our validation function returns 'contains offensive words', then the error message raised would be something like, "Email personalEmail input 'asshat@foo.com' contains offensive words."
+
+## Invoking with context
+
+All the functions will take their options either 1) passed in as the second argument or 2) from the `this` context (passed in options override `this` options). This allows you do something like:
+```javascript
+const context = { allowQuotedLocalPart : true, type: Email }
+context.type('"quoted local part"@foo.com') // is valid because `context` is treated as `this`
+```
+
+This is how this library integrates with [command-line-args](https://github.com/75lb/command-line-args#readme). You can specify the options right in the option spec and internally, the `type` function is invoked like in our example above.
 
 ##  API Reference
 _API generated with [dmd-readme-api](https://www.npmjs.com/package/dmd-readme-api)._
