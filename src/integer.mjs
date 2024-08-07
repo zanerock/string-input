@@ -59,4 +59,6 @@ const Integer = function (input, options = this || {}) {
   return value
 }
 
+Integer.description = 'Integer'
+
 export { Integer }

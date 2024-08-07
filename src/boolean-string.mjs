@@ -74,4 +74,6 @@ const BooleanString = function (input, options = this || {}) {
   return value
 }
 
+BooleanString.description = 'Boolean string'
+
 export { BooleanString }
