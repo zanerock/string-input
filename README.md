@@ -290,7 +290,7 @@ be passed to the `Email` ``
   rfc4343).
 
 
-[**Source code**](./src/email.mjs#L143)
+[**Source code**](./src/email.mjs#L145)
 
 <a id="Integer"></a>
 ### `Integer(input, options)` ⇒ `number`
@@ -493,3 +493,6 @@ Represents the time components.
 
 [**Source code**](./src/time-of-day.mjs#L9)
 
+## Common description field
+
+All the type functions provide a `description` field for use in reporting issues or describing the type. E.g., `EIN.description = 'EIN'`.

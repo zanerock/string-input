@@ -80,4 +80,6 @@ const ValidatedString = function (input, options = this || {}) {
   return input
 }
 
+ValidatedString.description = 'Validated string'
+
 export { ValidatedString }

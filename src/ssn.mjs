@@ -36,4 +36,6 @@ const SSN = function (input, options = this || {}) {
   return value
 }
 
+SSN.description = 'SSN'
+
 export { SSN }

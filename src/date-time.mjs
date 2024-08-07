@@ -114,6 +114,8 @@ const DateTime = function (input, options = this || {}) {
   return value
 }
 
+DateTime.description = 'Date-time'
+
 const limitToString = (limit) => {
   const year = limit.getYear()
   const month = limit.getMonth()

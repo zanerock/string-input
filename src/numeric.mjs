@@ -48,4 +48,6 @@ const Numeric = function (input, options = this || {}) {
   return value
 }
 
+Numeric.description = 'Numeric'
+
 export { Numeric }
