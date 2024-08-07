@@ -90,6 +90,7 @@ This is how this library integrates with [command-line-args](https://github.com/
 _API generated with [dmd-readme-api](https://www.npmjs.com/package/dmd-readme-api)._
 
 - Functions:
+  - [`BooleanString()`](#BooleanString): Parses and validates an input string as a boolean.
   - [`CardNumber()`](#CardNumber): Validates an input string as a syntactically valid card number.
   - [`DateTime()`](#DateTime): Parses and validates a wide range of date-time formats.
   - [`Day()`](#Day): Parses and validates input string as a specific day (date).
@@ -107,6 +108,30 @@ _API generated with [dmd-readme-api](https://www.npmjs.com/package/dmd-readme-ap
   - [`DayData`](#DayData): Represents the components of specific day.
   - [`EmailData`](#EmailData): Email address and components.
   - [`TimeData`](#TimeData): Represents the time components.
+
+<a id="BooleanString"></a>
+### `BooleanString(input, options)` ⇒ `boolean`
+
+Parses and validates an input string as a boolean. By default recognizes true/t/yes/y/any positive number as `true` 
+and false/f/no/n/0 as `false` (case insensitive).
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| input | `string` | The input string. |
+| options | `object` | The validation options. |
+| options.name | `string` | The 'name' by which to refer to the input when generating error messages for the user. |
+| options.noAbbreviations | `boolean` | = Disallow t/f/y/n responses. |
+| options.noNumeric | `boolean` | Disallow numeric answers. |
+| options.noYesNo | `boolean` | Disallow yes/no/y/n responses. |
+| options.treatNegativeValuesAsFalse | `boolean` | When true, inputs that parse as a negative numeric value will    be treated as `false` instead of raising an exception. |
+| options.validateInput | `function` | A custom validation function which looks at the original input string. See   the [custom validation functions](#custom-validation-functions) section for details on input and return values. |
+| options.validateValue | `function` | A custom validation function which looks at the transformed value. See the   [custom validation functions](#custom-validation-functions) section for details on input and return values. |
+
+**Returns**: `boolean` - A primitive boolean.
+
+
+[**Source code**](./src/boolean-string.mjs#L27)
 
 <a id="CardNumber"></a>
 ### `CardNumber(input, options)` ⇒ `string`
