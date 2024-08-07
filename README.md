@@ -112,7 +112,7 @@ _API generated with [dmd-readme-api](https://www.npmjs.com/package/dmd-readme-ap
 <a id="BooleanString"></a>
 ### `BooleanString(input, options)` ⇒ `boolean`
 
-Parses and validates an input string as a boolean. By default recognizes true/t/yes/y/any positive number as `true` 
+Parses and validates an input string as a boolean. By default recognizes true/t/yes/y/any positive number as `true`
 and false/f/no/n/0 as `false` (case insensitive).
 
 
@@ -124,14 +124,14 @@ and false/f/no/n/0 as `false` (case insensitive).
 | options.noAbbreviations | `boolean` | = Disallow t/f/y/n responses. |
 | options.noNumeric | `boolean` | Disallow numeric answers. |
 | options.noYesNo | `boolean` | Disallow yes/no/y/n responses. |
-| options.treatNegativeValuesAsFalse | `boolean` | When true, inputs that parse as a negative numeric value will    be treated as `false` instead of raising an exception. |
+| options.treatNegativeValuesAsFalse | `boolean` | When true, inputs that parse as a negative numeric value will   be treated as `false` instead of raising an exception. |
 | options.validateInput | `function` | A custom validation function which looks at the original input string. See   the [custom validation functions](#custom-validation-functions) section for details on input and return values. |
 | options.validateValue | `function` | A custom validation function which looks at the transformed value. See the   [custom validation functions](#custom-validation-functions) section for details on input and return values. |
 
 **Returns**: `boolean` - A primitive boolean.
 
 
-[**Source code**](./src/boolean-string.mjs#L27)
+[**Source code**](./src/boolean-string.mjs#L26)
 
 <a id="CardNumber"></a>
 ### `CardNumber(input, options)` ⇒ `string`
