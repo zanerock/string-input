@@ -37,5 +37,6 @@ const SSN = function (input, options = this || {}) {
 }
 
 SSN.description = 'SSN'
+SSN.toString = () => SSN.description
 
 export { SSN }

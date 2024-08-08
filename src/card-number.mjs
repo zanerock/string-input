@@ -84,6 +84,7 @@ const CardNumber = function (input, options = this || {}) {
 }
 
 CardNumber.description = 'Card number'
+CardNumber.toString = () => CardNumber.description
 
 export { CardNumber }
 

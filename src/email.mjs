@@ -128,6 +128,7 @@ const Email = function (input, options = this || {}) {
 }
 
 Email.description = 'Email'
+Email.toString = () => Email.description
 
 export {
   Email,

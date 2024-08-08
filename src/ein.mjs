@@ -37,5 +37,6 @@ const EIN = function (input, options = this || {}) {
 }
 
 EIN.description = 'EIN'
+EIN.toString = () => EIN.description
 
 export { EIN }
