@@ -60,5 +60,6 @@ const Integer = function (input, options = this || {}) {
 }
 
 Integer.description = 'Integer'
+Integer.toString = () => Integer.description
 
 export { Integer }

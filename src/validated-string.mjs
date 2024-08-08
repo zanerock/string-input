@@ -81,5 +81,6 @@ const ValidatedString = function (input, options = this || {}) {
 }
 
 ValidatedString.description = 'Validated string'
+ValidatedString.toString = () => ValidatedString.description
 
 export { ValidatedString }

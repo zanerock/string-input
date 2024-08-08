@@ -115,5 +115,6 @@ const getValue = ({ isEOD, militaryTimeMatch, timeMatch, twentyFourHourTimeMatch
 }
 
 TimeOfDay.description = 'Time of day'
+TimeOfDay.toString = () => TimeOfDay.description
 
 export { TimeOfDay }

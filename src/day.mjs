@@ -112,6 +112,7 @@ const Day = function (input, options = this || {}) {
 }
 
 Day.description = 'Day'
+Day.toString = () => Day.description
 
 const createValue = ({ day, month, year, date }) => ({
   isDayObject   : () => true,

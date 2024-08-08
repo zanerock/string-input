@@ -49,5 +49,6 @@ const Numeric = function (input, options = this || {}) {
 }
 
 Numeric.description = 'Numeric'
+Numeric.toString = () => Numeric.description
 
 export { Numeric }
