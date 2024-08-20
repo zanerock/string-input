@@ -1,3 +1,4 @@
+import { configureStringInput } from '../configure-string-input'
 import { Day } from '../day'
 
 describe('Day', () => {
@@ -70,4 +71,25 @@ describe('Day', () => {
 
   test('Result valueOf() return epoch seconds',
     () => expect(Day('1 Jan 2024').valueOf()).toBe(new Date('1 Jan 2024').getTime()))
+
+  describe('test simple value', () => {
+    afterEach(() => configureStringInput())
+
+    test("respects global 'simpleValue' setting", () => {
+      configureStringInput('simpleValue', true)
+      const date = Day('2024-01-02')
+      expect(date instanceof Date).toBe(true)
+    })
+
+    test("respects options simple value setting", () => {
+      const date = Day('2024-01-02', { simpleValue : true })
+      expect(date instanceof Date).toBe(true)
+    })
+
+    test('option value always overrides global value', () => {
+      configureStringInput('simpleValue', true)
+      const day = Day('2024-01-02', { simpleValue : false })
+      expect(day.isDayObject()).toBe(true)
+    })
+  })
 })

@@ -5,6 +5,7 @@ import { checkValidateInput } from './lib/check-validate-input'
 import { checkValidateValue } from './lib/check-validate-value'
 import { convertMonthName } from './lib/date-time/convert-month-name'
 import { describeInput } from './lib/describe-input'
+import { returnSimpleValue } from './lib/return-simple-value'
 import { typeChecks } from './lib/type-checks'
 
 /**
@@ -28,6 +29,8 @@ import { typeChecks } from './lib/type-checks'
  * @param {string} options.name - The 'name' by which to refer to the input when generating error messages for the user.
  * @param {string|number|Date} options.max - The latest day to be considered valid.
  * @param {string|number|Date} options.min - The earliest day to be considered valid.
+ * @param {boolean} options.simpleValue - When true, this function returns a `Date` rather than the default 
+ *   {@link DayData}.
  * @param {Function} options.validateInput - A custom validation function which looks at the original input string. See
  *   the [custom validation functions](#custom-validation-functions) section for details on input and return values.
  * @param {Function} options.validateValue - A custom validation function which looks at the transformed value. See the
@@ -35,7 +38,7 @@ import { typeChecks } from './lib/type-checks'
  * @returns {DayData} The day/date data.
  */
 const Day = function (input, options = this || {}) {
-  const { name } = options
+  const { name, simpleValue } = options
   let { max, min } = options
 
   const selfDescription = describeInput('Day', name)
@@ -108,7 +111,7 @@ const Day = function (input, options = this || {}) {
 
   checkValidateValue(value, validationOptions)
 
-  return value
+  return returnSimpleValue(simpleValue) ? value.getDate() : value
 }
 
 Day.description = 'Day'

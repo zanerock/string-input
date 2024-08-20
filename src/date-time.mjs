@@ -3,13 +3,13 @@ import { iso8601DateTimeRE, rfc2822DateRE } from 'regex-repo'
 import { checkMaxMin } from './lib/check-max-min'
 import { checkValidateInput } from './lib/check-validate-input'
 import { checkValidateValue } from './lib/check-validate-value'
-import { configureStringInput } from './configure-string-input'
 import { convertTimezoneOffsetToString } from './lib/date-time/convert-timezone-offset-to-string'
 import { describeInput } from './lib/describe-input'
 import { makeDateTimeString } from './lib/date-time/make-date-time-string'
 import { processIdiomaticDateTime } from './lib/date-time/process-idiomatic-date-time'
 import { processISO8601DateTime } from './lib/date-time/process-iso-8601-date-time'
 import { processRFC2822DateTime } from './lib/date-time/process-rfc-2822-date-time'
+import { returnSimpleValue } from './lib/return-simple-value'
 import { typeChecks } from './lib/type-checks'
 
 /**
@@ -50,7 +50,7 @@ import { typeChecks } from './lib/type-checks'
  *   parseable by this function, milliseconds since the epoch (UTC), or a Date object.
  * @param {boolean} options.noEOD - Disallows the special times '24:00:00', which represents the last moment of the day.
  * @param {boolean} options.simpleValue - When true, this function returns a `Date` rather than the default 
- *   [`DateTimeData`](#DateTimeData).
+ *   {@link DateTimeData}.
  * @param {Function} options.validateInput - A custom validation function which looks at the original input string. See
  *   the [custom validation functions](#custom-validation-functions) section for details on input and return values.
  * @param {Function} options.validateValue - A custom validation function which looks at the transformed value. See the
@@ -114,11 +114,7 @@ const DateTime = function (input, options = this || {}) {
 
   checkValidateValue(value, validationOptions)
 
-  if ((simpleValue !== undefined && simpleValue === true)
-      || (simpleValue === undefined && configureStringInput('simpleValue') === true)) {
-    return value.getDate()
-  } // else
-  return value
+  return returnSimpleValue(simpleValue) ? value.getDate() : value
 }
 
 DateTime.description = 'Date-time'
