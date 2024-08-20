@@ -48,6 +48,8 @@ import { typeChecks } from './lib/type-checks'
  * @param {string|number|Date} options.max - The latest valid time, inclusive. This may be specified as any string
  *   parseable by this function, milliseconds since the epoch (UTC), or a Date object.
  * @param {boolean} options.noEOD - Disallows the special times '24:00:00', which represents the last moment of the day.
+ * @param {boolean} options.simpleValue - When true, this function returns a `Date` rather than the default 
+ *   [`DateTimeData`](#DateTimeData).
  * @param {Function} options.validateInput - A custom validation function which looks at the original input string. See
  *   the [custom validation functions](#custom-validation-functions) section for details on input and return values.
  * @param {Function} options.validateValue - A custom validation function which looks at the transformed value. See the
