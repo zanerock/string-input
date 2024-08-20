@@ -1,3 +1,4 @@
+import { configureStringInput } from '../configure-string-input'
 import { DateTime } from '../date-time'
 
 describe('DateTime', () => {
@@ -98,5 +99,26 @@ describe('DateTime', () => {
     const date1 = dateTime.getDate()
     const date2 = dateTime.getDate()
     expect(date1).toBe(date2)
+  })
+
+  describe('test simple value', () => {
+    afterEach(() => configureStringInput())
+
+    test("respects global 'simpleValue' setting", () => {
+      configureStringInput('simpleValue', true)
+      const dateTime = DateTime('2024-01-02 12:30:40.50 -0100')
+      expect(dateTime instanceof Date).toBe(true)
+    })
+
+    test("respects options simple value setting", () => {
+      const dateTime = DateTime('2024-01-02 12:30:40.50 -0100', { simpleValue : true })
+      expect(dateTime instanceof Date).toBe(true)
+    })
+
+    test('option value always overrides global value', () => {
+      configureStringInput('simpleValue', true)
+      const dateTime = DateTime('2024-01-02 12:30:40.50 -0100', { simpleValue : false })
+      expect(dateTime.isEOD).toBeTruthy()
+    })
   })
 })

@@ -3,6 +3,7 @@ import { iso8601DateTimeRE, rfc2822DateRE } from 'regex-repo'
 import { checkMaxMin } from './lib/check-max-min'
 import { checkValidateInput } from './lib/check-validate-input'
 import { checkValidateValue } from './lib/check-validate-value'
+import { configureStringInput } from './configure-string-input'
 import { convertTimezoneOffsetToString } from './lib/date-time/convert-timezone-offset-to-string'
 import { describeInput } from './lib/describe-input'
 import { makeDateTimeString } from './lib/date-time/make-date-time-string'
@@ -57,7 +58,7 @@ import { typeChecks } from './lib/type-checks'
  * @returns {DateTimeData} The date-time data.
  */
 const DateTime = function (input, options = this || {}) {
-  const { name, localTimezone, noEOD } = options
+  const { name, localTimezone, noEOD, simpleValue } = options
   let { min, max } = options
 
   const selfDescription = describeInput('Date-time', name)
@@ -113,6 +114,10 @@ const DateTime = function (input, options = this || {}) {
 
   checkValidateValue(value, validationOptions)
 
+  if ((simpleValue !== undefined && simpleValue === true)
+      || (simpleValue === undefined && configureStringInput('simpleValue') === true)) {
+    return value.getDate()
+  } // else
   return value
 }
 
